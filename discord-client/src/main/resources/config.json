@@ -1,0 +1,31 @@
+{
+  "token": null,
+  "shards": 1,
+  "owners": [
+  ],
+  "type": "light",
+  "intents": [
+    "GUILD_MEMBERS",
+    "GUILD_MODERATION",
+    "GUILD_EMOJIS_AND_STICKERS",
+    "GUILD_WEBHOOKS",
+    "GUILD_INVITES",
+    "GUILD_VOICE_STATES",
+    "GUILD_PRESENCES",
+    "GUILD_MESSAGES",
+    "GUILD_MESSAGE_REACTIONS",
+    "GUILD_MESSAGE_TYPING",
+    "DIRECT_MESSAGES",
+    "DIRECT_MESSAGE_REACTIONS",
+    "DIRECT_MESSAGE_TYPING",
+    "MESSAGE_CONTENT",
+    "SCHEDULED_EVENTS",
+    "AUTO_MODERATION_CONFIGURATION",
+    "AUTO_MODERATION_EXECUTION",
+    "GUILD_MESSAGE_POLLS",
+    "DIRECT_MESSAGE_POLLS"
+  ],
+  "activity.type": "PLAYING",
+  "activity.message": "/battle for start a game",
+  "language": "en"
+}

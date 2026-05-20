@@ -1,0 +1,4 @@
+rootProject.name = 'room-royale'
+include ':core'
+include ':print-client'
+include ':discord-client'

@@ -1,0 +1,31 @@
+{
+  "name": "English",
+  "discord.locale": "ENGLISH_US",
+
+  "occurred.error": "An error occurred. Please try again.",
+
+  "command.unauthorized": "You are not authorized to use this command.",
+
+  "command.stop.name": "stop",
+  "command.stop.description": "Stops the bot. (Owner only)",
+
+
+  "damage.inactivity": "You took {{ damage }} damage(s) for inactivity.",
+
+  "potion.use": "You have used potion! +{{ heal }} PV.",
+  "potion.empty": "You have not potion!",
+
+  "attack.already.eliminate": "Your target is already dead.",
+  "attack.left.room": "Your target is no longer in the room.",
+  "action.defense.self": "You defended yourself against an attack.",
+  "action.defense.failed": "Your target parried your attack.",
+  "attack.take": "You took {{ damage }} damage.",
+  "attack.take.crit": "You took {{ damage }} damage. [Critical]",
+  "attack.dealt": "You deal {{ damage }} damage to your target.",
+  "attack.dealt.crit": "You deal {{ damage }} damage to your target. [Critical]",
+  "attack.kill": "You killed {{ killed }}! (+{{ potions }} potions)",
+  "attack.killed.by": "You were killed by {{ killer }}!",
+
+  "move.success": "You've moved to another room.",
+  "move.failed": "Unable to join a new room."
+}
