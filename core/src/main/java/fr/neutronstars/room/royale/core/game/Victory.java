@@ -1,10 +1,14 @@
 package fr.neutronstars.room.royale.core.game;
 
+import fr.neutronstars.room.royale.core.game.entity.Entity;
 import fr.neutronstars.room.royale.core.game.entity.Position;
+
+import java.util.Optional;
 
 public class Victory {
     private final Game game;
 
+    private Entity winner;
     private long completeAt;
     private boolean complete;
 
@@ -24,6 +28,10 @@ public class Victory {
         return this.completeAt;
     }
 
+    public Optional<Entity> winner() {
+        return Optional.ofNullable(this.winner);
+    }
+
     public void check() {
         if (this.game.entities().counter().remaining() < 2) {
             this.completeAt = System.currentTimeMillis();
@@ -35,6 +43,7 @@ public class Victory {
                 .findFirst()
                 .ifPresent(entity -> {
                     entity.position(new Position(1));
+                    this.winner = entity;
                 });
         }
     }

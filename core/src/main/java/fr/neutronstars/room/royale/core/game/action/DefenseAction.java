@@ -6,7 +6,7 @@ import fr.neutronstars.room.royale.core.game.room.Room;
 public record DefenseAction(Entity entity, long selectTime) implements Action {
     @Override
     public int priority() {
-        return 10;
+        return -10;
     }
 
     @Override

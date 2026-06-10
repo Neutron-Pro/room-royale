@@ -53,9 +53,9 @@ public class DiscordLauncher {
             .map(GatewayIntent::valueOf)
             .toList();
 
-        final Set<Long> owners = configuration.<Number>listOf("owners", ArrayList::new)
+        final Set<Long> owners = configuration.<String>listOf("owners", ArrayList::new)
             .stream()
-            .map(Number::longValue)
+            .map(Long::parseLong)
             .collect(Collectors.toSet());
 
         final EasyInjectorService injectorService = SimpleEasyInjectorService.createDefault();
@@ -63,7 +63,7 @@ public class DiscordLauncher {
             .create(injectorService.configurations().of("root", Prototype.class));
 
         injector.scanner()
-            .scan(DiscordLauncher.class.getClassLoader(), "fr.neutronstars.room.royal.discord");
+            .scan(DiscordLauncher.class.getClassLoader(), "fr.neutronstars.room.royale.discord");
 
         final RoomRoyale roomRoyale = RoomRoyaleBuilder.create(LoggerFactory.getLogger("Room Royale"))
             .withDefaultRequests()
@@ -90,6 +90,8 @@ public class DiscordLauncher {
             discordClient.translations(),
             configuration.of("translation.default", "en")
         );
+
+        roomRoyale.scheduler().start();
 
         (
             switch (configuration.of("type", "LIGHT").toUpperCase()) {

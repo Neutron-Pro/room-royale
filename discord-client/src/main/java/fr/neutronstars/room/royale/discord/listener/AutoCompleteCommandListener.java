@@ -4,7 +4,6 @@ import fr.neutronstars.easy.java.injector.api.annotation.Inject;
 import fr.neutronstars.room.royale.core.game.entity.journal.Entry;
 import fr.neutronstars.room.royale.core.user.User;
 import fr.neutronstars.room.royale.discord.DiscordClient;
-import fr.neutronstars.room.royal.discord.command.*;
 import fr.neutronstars.room.royale.discord.command.*;
 import fr.neutronstars.room.royale.discord.translation.Translation;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;

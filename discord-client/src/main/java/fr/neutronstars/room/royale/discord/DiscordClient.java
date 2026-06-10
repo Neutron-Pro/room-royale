@@ -7,6 +7,8 @@ import fr.neutronstars.room.royale.discord.configuration.Configurations;
 import fr.neutronstars.room.royale.discord.interaction.Interactions;
 import fr.neutronstars.room.royale.discord.listener.Listeners;
 import fr.neutronstars.room.royale.discord.translation.Translations;
+import fr.neutronstars.room.royale.discord.utils.Embeds;
+import fr.neutronstars.room.royale.discord.utils.MessageInformation;
 import fr.neutronstars.room.royale.discord.utils.Owners;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import org.slf4j.Logger;
@@ -21,6 +23,8 @@ public class DiscordClient {
     private final Injector injector;
     private final Commands commands;
     private final Interactions interactions;
+    private final MessageInformation messageInformation;
+    private final Embeds embeds;
 
     private ShardManager shardManager;
 
@@ -40,6 +44,8 @@ public class DiscordClient {
         this.listeners = new Listeners(this);
         this.commands = new Commands(this);
         this.interactions = new Interactions();
+        this.messageInformation = new MessageInformation(this);
+        this.embeds = new Embeds();
     }
 
     public Logger logger() {
@@ -76,6 +82,14 @@ public class DiscordClient {
 
     public Interactions interactions() {
         return this.interactions;
+    }
+
+    public MessageInformation messageInformation() {
+        return this.messageInformation;
+    }
+
+    public Embeds embeds() {
+        return this.embeds;
     }
 
     public ShardManager shardManager() {

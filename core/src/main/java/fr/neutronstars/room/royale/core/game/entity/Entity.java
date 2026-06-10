@@ -1,5 +1,6 @@
 package fr.neutronstars.room.royale.core.game.entity;
 
+import fr.neutronstars.room.royale.core.game.Game;
 import fr.neutronstars.room.royale.core.game.action.Action;
 import fr.neutronstars.room.royale.core.game.entity.journal.Journal;
 import fr.neutronstars.room.royale.core.game.entity.statistics.HealStatistic;
@@ -14,6 +15,7 @@ public class Entity {
     protected final String name;
     protected final Object id;
 
+    protected Game game;
     protected Room room;
     protected int roomPosition = -1;
     protected Action action;
@@ -40,6 +42,10 @@ public class Entity {
         return this.statistics;
     }
 
+    public Game game() {
+        return this.game;
+    }
+
     public Optional<Room> room() {
         return Optional.ofNullable(room);
     }
@@ -52,8 +58,13 @@ public class Entity {
         return this.statistics.of(HealStatistic.class).of() < 1;
     }
 
-    public void room(Room room) {
+    public void game(Game game) {
+        this.game = game;
+    }
+
+    public void room(Room room, int roomPosition) {
         this.room = room;
+        this.roomPosition = roomPosition;
     }
 
     public Optional<Action> action() {

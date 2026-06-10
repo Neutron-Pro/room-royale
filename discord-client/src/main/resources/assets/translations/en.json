@@ -2,30 +2,79 @@
   "name": "English",
   "discord.locale": "ENGLISH_US",
 
-  "occurred.error": "An error occurred. Please try again.",
+  "game.name": "Room Royale",
+  "game.remaining_players": "\uD83D\uDC65 Remaining Players: {{ remaining }}/{{ players }}",
 
-  "command.unauthorized": "You are not authorized to use this command.",
+  "game.room.slot.empty": "free space",
+  "game.room.slot.statistic.heal": "❤\uFE0F Vie: {{ value }}/{{ max }}",
+  "game.room.slot.statistic.attack": "⚔\uFE0F Attack: {{ value }}",
+  "game.room.slot.statistic.defense": "\uD83D\uDEE1\uFE0F Defense: {{ value }}",
+  "game.room.slot.statistic.kills": "\uD83D\uDC80 Kills: {{ value }}",
+  "game.room.slot.statistic.potions": "\uD83C\uDF7E Potions: {{ value }}",
+
+  "game.room.action.title": "Action",
+  "game.room.action.empty": "✅ You can choose an action.",
+  "game.room.action.attack": "⚔\uFE0F Attack on {{ target }}",
+  "game.room.action.defense": "\uD83D\uDEE1\uFE0F Defense",
+  "game.room.action.move": "\uD83D\uDDFA\uFE0F Move to another room",
+  "game.room.action.heal": "\uD83C\uDF7E Take a potion",
+
+  "game.room.action.remaining.time.title": "Temps restant",
+  "game.room.action.remaining.time.value": "⏲\uFE0F {{ time }}",
+
+  "game.logs": "Journal",
+  "game.logs.emtpy": "\uD83D\uDDDE\uFE0F The journal is empty !",
+
+  "game.button.refresh": "\uD83D\uDD04 Refresh",
+  "game.button.attack": "⚔\uFE0F Attack on {{ target }}",
+  "game.button.defense": "\uD83D\uDEE1\uFE0F Defense",
+  "game.button.move": "\uD83D\uDDFA\uFE0F Change Room",
+  "game.button.heal": "\uD83C\uDF7E Take a potion",
+
+  "game.winner.title": "Victory",
+  "game.winner.description": "\uD83C\uDFC6 {{ winner }} won the Room Royale !",
+
+  "game.position.title": "Position",
+  "game.position.value": "\uD83D\uDEA9 Game over ! You're in the top {{ position }}!",
+
+  "interaction.cant.interact": "❌ You can't perform this interaction!",
+  "interaction.action.already.selected": "❌ You've already chosen an action!",
+  "interaction.action.not.valid": "❌ Your action is not valid!",
+  "interaction.action.request.successed": "✅ Your action has been processed. Please refresh the game or re-enter the /battle command.",
+
+  "occurred.error": "❌ An error occurred. Please try again.",
+
+  "command.unauthorized": "❌ You are not authorized to use this command.",
 
   "command.stop.name": "stop",
   "command.stop.description": "Stops the bot. (Owner only)",
 
+  "command.battle.name": "battle",
+  "command.battle.description": "Played at Room Royale",
+  "command.battle.need.registered": "❌ {{ member }}, you're not registered! Use the “register” command to join the matchmaking queue!",
+  "command.battle.waiting.queue": "✅ {{ member }}, you are in the queue. Please wait until the game begins. (Estimate position: {{ position }}, Estimate Time before start: {{ time }}s)",
 
-  "damage.inactivity": "You took {{ damage }} damage(s) for inactivity.",
+  "command.register.name": "register",
+  "command.register.description": "Join a Room Royale",
+  "command.register.already.registered": "✅ You're already registered! Please enter the command /battle to continue.",
+  "command.register.confirm": "✅ We have received your registration request. Please enter the command /battle to continue.",
 
-  "potion.use": "You have used potion! +{{ heal }} PV.",
-  "potion.empty": "You have not potion!",
+  "damage.inactivity": "⚔\uFE0F You took {{ damage }} damage(s) for inactivity.",
 
-  "attack.already.eliminate": "Your target is already dead.",
-  "attack.left.room": "Your target is no longer in the room.",
-  "action.defense.self": "You defended yourself against an attack.",
-  "action.defense.failed": "Your target parried your attack.",
-  "attack.take": "You took {{ damage }} damage.",
-  "attack.take.crit": "You took {{ damage }} damage. [Critical]",
-  "attack.dealt": "You deal {{ damage }} damage to your target.",
-  "attack.dealt.crit": "You deal {{ damage }} damage to your target. [Critical]",
-  "attack.kill": "You killed {{ killed }}! (+{{ potions }} potions)",
-  "attack.killed.by": "You were killed by {{ killer }}!",
+  "potion.use": "\uD83C\uDF7E You have used potion! +{{ heal }} PV.",
+  "potion.empty": "❌ You have not potion!",
 
-  "move.success": "You've moved to another room.",
-  "move.failed": "Unable to join a new room."
+  "attack.already.eliminate": "\uD83D\uDC80 target is already dead.",
+  "attack.left.room": "❌ Your target is no longer in the room.",
+  "action.defense.self": "\uD83D\uDEE1\uFE0F You defended yourself against an attack.",
+  "action.defense.failed": "\uD83D\uDEE1\uFE0F Your target parried your attack.",
+  "attack.take": "⚔\uFE0F You took {{ damage }} damage.",
+  "attack.take.crit": "⚔\uFE0F You took {{ damage }} damage. [Critical]",
+  "attack.dealt": "⚔\uFE0F You deal {{ damage }} damage to your target.",
+  "attack.dealt.crit": "⚔\uFE0F You deal {{ damage }} damage to your target. [Critical]",
+  "attack.kill": "\uD83D\uDC80 You killed {{ killed }}! (+{{ potions }} potions)",
+  "attack.killed.by": "\uD83D\uDC80 You were killed by {{ killer }}!",
+
+  "move.success": "\uD83D\uDDFA\uFE0F You've moved to another room.",
+  "move.failed": "❌ Unable to join a new room."
 }

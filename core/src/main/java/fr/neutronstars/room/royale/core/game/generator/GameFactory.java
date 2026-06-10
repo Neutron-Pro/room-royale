@@ -62,7 +62,12 @@ public class GameFactory implements Factory<Game> {
         if (this.dispatcher != null) {
             this.dispatcher.dispatch(game);
         }
-        game.entities().all().forEach(entity -> entity.statistics().initialize(game));
+        game.entities()
+            .all()
+            .forEach(entity -> {
+                entity.game(game);
+                entity.statistics().initialize(game);
+            });
         return game;
     }
 }

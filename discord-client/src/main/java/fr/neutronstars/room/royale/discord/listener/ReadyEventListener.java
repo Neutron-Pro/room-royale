@@ -34,9 +34,9 @@ public class ReadyEventListener implements EventListener {
         this.discordClient.injector()
             .scanner()
             .find(
-                "fr.neutronstars.room.royal.discord.command",
-                "fr.neutronstars.room.royal.discord.listener",
-                "fr.neutronstars.room.royal.discord.interaction"
+                "fr.neutronstars.room.royale.discord.command",
+                "fr.neutronstars.room.royale.discord.listener",
+                "fr.neutronstars.room.royale.discord.interaction"
             ).inject();
 
         final CommandData[] commandData = this.discordClient.commands()
@@ -45,7 +45,7 @@ public class ReadyEventListener implements EventListener {
             .map(Command::data)
             .toArray(CommandData[]::new);
 
-        shardManager.getShards().forEach(jda -> jda.updateCommands().addCommands(commandData).queue());
+        shardManager.getShards().getFirst().updateCommands().addCommands(commandData).queue();
 
         this.discordClient.logger().info("Discord client is ready!");
     }

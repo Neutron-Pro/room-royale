@@ -3,7 +3,6 @@ package fr.neutronstars.room.royale.print.launcher;
 import fr.neutronstars.room.royale.core.RoomRoyale;
 import fr.neutronstars.room.royale.core.utils.RoomRoyaleBuilder;
 import fr.neutronstars.room.royale.print.PrintClient;
-import fr.neutronstars.room.royal.print.command.*;
 import fr.neutronstars.room.royale.print.command.*;
 import fr.neutronstars.room.royale.print.translation.TranslationLoader;
 import fr.neutronstars.room.royale.print.utils.Client;

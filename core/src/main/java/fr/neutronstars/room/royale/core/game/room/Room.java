@@ -64,7 +64,7 @@ public class Room {
                         room.leave(entity);
                     }
                     this.entities[i] = entity;
-                    entity.room(this);
+                    entity.room(this, i + 1);
                     this.game().logger().trace(
                         "{} ({} <{}>) has joined room {}",
                         entity.getClass().getSimpleName(),
@@ -90,7 +90,7 @@ public class Room {
         for (int i = 0; i < this.entities.length; i++) {
             if (entity.equals(this.entities[i])) {
                 this.entities[i] = null;
-                entity.room(null);
+                entity.room(null, -1);
                 this.game().logger().trace(
                     "{} ({} <{}>) has left room {}",
                     entity.getClass().getSimpleName(),

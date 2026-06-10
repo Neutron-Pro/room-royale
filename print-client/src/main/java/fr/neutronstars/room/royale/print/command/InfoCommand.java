@@ -91,19 +91,14 @@ public class InfoCommand extends AbstractGameCommand {
         this.printClient.logger().info(" ");
         this.printClient.logger().info("Journal: ");
 
-        final List<JournalEntry> entries = new ArrayList<>(user.player().journal().entries());
+        final Collection<JournalEntry> entries = user.player().journal().lastEntries(10);
         if (entries.isEmpty()) {
             this.printClient.logger().info("  > The journal is empty!");
         } else {
-            Collections.reverse(entries);
-            int index = 0;
-            for (final JournalEntry entry : entries) {
-                index++;
-                if (index >= 10) {
-                    break;
-                }
-                this.printClient.logger().info("  > {}", this.printClient.translations().def().translate(entry));
-            }
+            entries.forEach(
+                entry -> this.printClient.logger()
+                    .info("  > {}", this.printClient.translations().def().translate(entry))
+            );
         }
 
         this.printClient.logger().info(" ");
