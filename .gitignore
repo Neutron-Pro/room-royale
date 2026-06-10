@@ -125,3 +125,4 @@ gradle.properties
 src/main/todo.txt
 
 configs/
+histories/
