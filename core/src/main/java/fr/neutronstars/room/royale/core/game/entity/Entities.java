@@ -36,7 +36,7 @@ public class Entities {
             entity,
             new Entry("game.history.entity.eliminate")
                 .add(new LiteralParameter("entity", entity.name()))
-                .add(new LiteralParameter("position", position.of()))
+                .add(new LiteralParameter("position", String.valueOf(position.of())))
         );
     }
 }
