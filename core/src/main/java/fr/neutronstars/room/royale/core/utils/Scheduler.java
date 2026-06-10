@@ -72,6 +72,7 @@ public class Scheduler {
                         this.roomRoyale.users().unregister(player.user());
                     }
                 }
+                this.roomRoyale.histories().persist(game);
             });
 
             this.roomRoyale.matchmaking().updater().update(currentTime);

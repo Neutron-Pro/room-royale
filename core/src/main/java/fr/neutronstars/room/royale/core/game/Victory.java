@@ -2,6 +2,8 @@ package fr.neutronstars.room.royale.core.game;
 
 import fr.neutronstars.room.royale.core.game.entity.Entity;
 import fr.neutronstars.room.royale.core.game.entity.Position;
+import fr.neutronstars.room.royale.core.game.entity.journal.Entry;
+import fr.neutronstars.room.royale.core.game.entity.journal.LiteralParameter;
 
 import java.util.Optional;
 
@@ -45,6 +47,14 @@ public class Victory {
                     entity.position(new Position(1));
                     this.winner = entity;
                 });
+
+            if (this.winner != null) {
+                this.game.histories().add(
+                    this.winner,
+                    new Entry("game.history.winner")
+                        .add(new LiteralParameter("entity", this.winner.name()))
+                );
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package fr.neutronstars.room.royale.core.game.action;
 
 import fr.neutronstars.room.royale.core.game.entity.Entity;
+import fr.neutronstars.room.royale.core.game.entity.journal.Entry;
 import fr.neutronstars.room.royale.core.game.entity.journal.JournalEntry;
 import fr.neutronstars.room.royale.core.game.entity.journal.LiteralParameter;
 import fr.neutronstars.room.royale.core.game.entity.statistics.*;
@@ -13,11 +14,27 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
     public void execute(Room room, long currentTime) {
         if (this.target.eliminate()) {
             this.entity.journal().add(new JournalEntry("attack.already.eliminate", currentTime));
+
+            room.game().histories().add(
+                this.entity,
+                new Entry("game.history.action.attack.already.eliminate")
+                    .add(new LiteralParameter("entity", this.entity.name()))
+                    .add(new LiteralParameter("target", this.target.name()))
+            );
+
             return;
         }
 
         if (!this.target.room().map(r -> r.equals(room)).orElse(false)) {
             this.entity.journal().add(new JournalEntry("attack.left.room", currentTime));
+
+            room.game().histories().add(
+                this.entity,
+                new Entry("game.history.action.attack.left.room")
+                    .add(new LiteralParameter("entity", this.entity.name()))
+                    .add(new LiteralParameter("target", this.target.name()))
+            );
+
             return;
         }
 
@@ -35,6 +52,21 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
         ) {
             this.target.journal().add(new JournalEntry("action.defense.self", currentTime));
             this.entity.journal().add(new JournalEntry("action.defense.failed", currentTime));
+
+            room.game().histories().add(
+                this.entity,
+                new Entry("game.history.action.defense.failed")
+                    .add(new LiteralParameter("entity", this.entity.name()))
+                    .add(new LiteralParameter("target", this.target.name()))
+            );
+
+            room.game().histories().add(
+                this.target,
+                new Entry("game.history.action.defense.self")
+                .add(new LiteralParameter("entity", this.target.name()))
+                .add(new LiteralParameter("target", this.entity.name()))
+            );
+
             return;
         }
 
@@ -67,12 +99,28 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
 
         this.target.journal().add(
             new JournalEntry("attack.take" + (critic ? ".crit" : ""), currentTime)
-                .add(new LiteralParameter("damage", damage))
+                .add(new LiteralParameter("damage", String.valueOf(damage)))
         );
 
         this.entity.journal().add(
             new JournalEntry("attack.dealt" + (critic ? ".crit" : ""), currentTime)
-                .add(new LiteralParameter("damage", damage))
+                .add(new LiteralParameter("damage", String.valueOf(damage)))
+        );
+
+        room.game().histories().add(
+            this.target,
+            new Entry("game.history.action.attack.take" + (critic ? ".crit" : ""))
+                .add(new LiteralParameter("entity", this.target.name()))
+                .add(new LiteralParameter("target", this.entity.name()))
+                .add(new LiteralParameter("damage", String.valueOf(damage)))
+        );
+
+        room.game().histories().add(
+            this.entity,
+            new Entry("game.history.action.attack.dealt" + (critic ? ".crit" : ""))
+                .add(new LiteralParameter("entity", this.entity.name()))
+                .add(new LiteralParameter("target", this.target.name()))
+                .add(new LiteralParameter("damage", String.valueOf(damage)))
         );
 
         if (this.target.eliminate()) {
@@ -85,12 +133,26 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
             this.entity.journal().add(
                 new JournalEntry("attack.kill", currentTime)
                     .add(new LiteralParameter("killed", this.target.name()))
-                    .add(new LiteralParameter("potions", potions))
+                    .add(new LiteralParameter("potions", String.valueOf(potions)))
             );
 
             this.target.journal().add(
                 new JournalEntry("attack.killed.by", currentTime)
                     .add(new LiteralParameter("killer", this.entity.name()))
+            );
+
+            room.game().histories().add(
+                this.entity,
+                new Entry("game.history.action.kill")
+                    .add(new LiteralParameter("entity", this.entity.name()))
+                    .add(new LiteralParameter("target", this.target.name()))
+            );
+
+            room.game().histories().add(
+                this.target,
+                new Entry("game.history.action.killed.by")
+                    .add(new LiteralParameter("entity", this.target.name()))
+                    .add(new LiteralParameter("target", this.entity.name()))
             );
         }
     }

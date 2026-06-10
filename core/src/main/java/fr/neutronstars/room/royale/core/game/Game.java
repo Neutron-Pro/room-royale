@@ -1,6 +1,7 @@
 package fr.neutronstars.room.royale.core.game;
 
 import fr.neutronstars.room.royale.core.game.entity.Entities;
+import fr.neutronstars.room.royale.core.game.history.GameHistories;
 import fr.neutronstars.room.royale.core.game.room.Rooms;
 import fr.neutronstars.room.royale.core.game.settings.Settings;
 import fr.neutronstars.room.royale.core.utils.Randomizer;
@@ -16,6 +17,7 @@ public class Game {
     private final Victory victory;
     private final Settings settings;
     private final Logger logger;
+    private final GameHistories histories;
 
     public Game(Logger logger, UUID id, Entities entities, int rooms) {
         this.logger = logger;
@@ -24,6 +26,7 @@ public class Game {
         this.rooms = new Rooms(this, rooms);
         this.victory = new Victory(this);
         this.settings = new Settings();
+        this.histories = new GameHistories();
     }
 
     public Logger logger() {
@@ -52,5 +55,9 @@ public class Game {
 
     public Settings settings() {
         return this.settings;
+    }
+
+    public GameHistories histories() {
+        return this.histories;
     }
 }

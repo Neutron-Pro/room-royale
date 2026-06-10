@@ -1,6 +1,7 @@
 package fr.neutronstars.room.royale.core.game.action;
 
 import fr.neutronstars.room.royale.core.game.entity.Entity;
+import fr.neutronstars.room.royale.core.game.entity.journal.Entry;
 import fr.neutronstars.room.royale.core.game.entity.journal.JournalEntry;
 import fr.neutronstars.room.royale.core.game.entity.journal.LiteralParameter;
 import fr.neutronstars.room.royale.core.game.entity.statistics.HealStatistic;
@@ -22,7 +23,14 @@ public record InactivityAction(Entity entity, long selectTime) implements Action
         this.entity.journal()
             .add(
                 new JournalEntry("damage.inactivity", currentTime)
-                    .add(new LiteralParameter("damage", damage))
+                    .add(new LiteralParameter("damage", String.valueOf(damage)))
             );
+
+        room.game().histories().add(
+            this.entity,
+            new Entry("game.history.action.inactivity")
+                .add(new LiteralParameter("entity", this.entity.name()))
+                .add(new LiteralParameter("damage", String.valueOf(damage)))
+        );
     }
 }

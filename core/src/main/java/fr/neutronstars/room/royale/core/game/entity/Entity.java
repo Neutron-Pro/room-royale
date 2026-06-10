@@ -12,8 +12,7 @@ import java.util.Optional;
 public class Entity {
     protected final Statistics statistics = new Statistics(this);
     protected final Journal journal = new Journal();
-    protected final String name;
-    protected final Object id;
+    protected final Profile profile;
 
     protected Game game;
     protected Room room;
@@ -22,16 +21,19 @@ public class Entity {
     protected Position position;
 
     public Entity(Object id, String name) {
-        this.id = id;
-        this.name = name;
+        this.profile = new Profile(id, name);
     }
 
     public Object id() {
-        return this.id;
+        return this.profile.id();
     }
 
     public String name() {
-        return this.name;
+        return this.profile.name();
+    }
+
+    public Profile profile() {
+        return this.profile;
     }
 
     public Journal journal() {

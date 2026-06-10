@@ -1,5 +1,8 @@
 package fr.neutronstars.room.royale.core.game.entity;
 
+import fr.neutronstars.room.royale.core.game.entity.journal.Entry;
+import fr.neutronstars.room.royale.core.game.entity.journal.LiteralParameter;
+
 import java.util.*;
 
 public class Entities {
@@ -25,7 +28,15 @@ public class Entities {
 
     public void eliminate(Entity entity) {
         entity.room().ifPresent(room -> room.leave(entity));
-        entity.position(new Position(this.counter.remaining()));
+        final Position position = new Position(this.counter.remaining());
+        entity.position(position);
         this.counter.remove();
+
+        entity.game().histories().add(
+            entity,
+            new Entry("game.history.entity.eliminate")
+                .add(new LiteralParameter("entity", entity.name()))
+                .add(new LiteralParameter("position", position.of()))
+        );
     }
 }

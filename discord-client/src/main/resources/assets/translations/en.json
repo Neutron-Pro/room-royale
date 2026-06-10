@@ -61,7 +61,7 @@
 
   "damage.inactivity": "⚔\uFE0F You took {{ damage }} damage(s) for inactivity.",
 
-  "potion.use": "\uD83C\uDF7E You have used potion! +{{ heal }} PV.",
+  "potion.use": "\uD83C\uDF7E You used potion! +{{ heal }} PV.",
   "potion.empty": "❌ You have not potion!",
 
   "attack.already.eliminate": "\uD83D\uDC80 target is already dead.",
@@ -76,5 +76,34 @@
   "attack.killed.by": "\uD83D\uDC80 You were killed by {{ killer }}!",
 
   "move.success": "\uD83D\uDDFA\uFE0F You've moved to another room.",
-  "move.failed": "❌ Unable to join a new room."
+  "move.failed": "❌ Unable to join a new room.",
+
+  "game.history.room.join": "\uD83D\uDDFA\uFE0F {{ entity }} join the room {{ room }}.",
+  "game.history.room.left": "\uD83D\uDDFA\uFE0F {{ entity }} left the room {{ room }}.",
+
+  "game.history.entity.eliminate": "\uD83D\uDC80 {{ entity }} is eliminate. (TOP {{ position }})",
+  "game.history.winner": "\uD83C\uDFC6 {{ entity }} won the Room Royale. (TOP 1)",
+
+  "game.history.action.inactivity": "⚔\uFE0F {{ entity }} takes {{ damage }} damage(s) for inactivity.",
+
+  "game.history.action.heal.success": "\uD83C\uDF7E {{ entity }} used potion. +{{ heal }} PV.",
+  "game.history.action.heal.failure": "\uD83C\uDF7E {{ entity }} tried to drink a potion even though he didn't have one.",
+
+  "game.history.action.move.try": "\uD83D\uDDFA\uFE0F {{ entity }} is trying to change rooms.",
+  "game.history.action.move.failure": "\uD83D\uDDFA\uFE0F {{ entity }} was unable to change rooms.",
+
+  "game.history.action.attack.already.eliminate": "⚔\uFE0F {{ entity }} tried to attack {{ target }} even though he had already been eliminated.",
+  "game.history.action.attack.left.room": "⚔\uFE0F {{ entity }} tried to attack {{ target }}, but he was no longer in the room.",
+
+  "game.history.action.attack.take": "⚔\uFE0F {{ entity }} took {{ damage }} damage from {{ target }}'s attack.",
+  "game.history.action.attack.take.crit": "⚔\uFE0F {{ entity }} took {{ damage }} damage from {{ target }}'s attack. [CRITIQUE]",
+
+  "game.history.action.attack.dealt": "⚔\uFE0F {{ entity }} dealt {{ damage }} damage to Neutron.",
+  "game.history.action.attack.dealt.crit": "⚔\uFE0F {{ entity }} dealt {{ damage }} damage to Neutron. [CRITIQUE]",
+
+  "game.history.action.kill": "\uD83D\uDC80 {{ entity }} killed {{ target }}.",
+  "game.history.action.killed.by": "\uD83D\uDC80 {{ entity }} was killed by {{ target }}.",
+
+  "game.history.action.defense.self": "\uD83D\uDEE1\uFE0F {{ entity }} defended himself against {{ target }}'s attack.",
+  "game.history.action.defense.failed": "\uD83D\uDEE1\uFE0F {{ entity }}'s attack on {{ target }} failed."
 }

@@ -2,6 +2,8 @@ package fr.neutronstars.room.royale.core.game.room;
 
 import fr.neutronstars.room.royale.core.game.Game;
 import fr.neutronstars.room.royale.core.game.entity.Entity;
+import fr.neutronstars.room.royale.core.game.entity.journal.Entry;
+import fr.neutronstars.room.royale.core.game.entity.journal.LiteralParameter;
 
 public class Room {
     private final Entity[] entities;
@@ -72,6 +74,12 @@ public class Room {
                         entity.id(),
                         this.id
                     );
+                    this.game.histories().add(
+                        entity,
+                        new Entry("game.history.room.join")
+                            .add(new LiteralParameter("entity", entity.name()))
+                            .add(new LiteralParameter("room", String.valueOf(this.id)))
+                    );
                     return true;
                 }
             }
@@ -97,6 +105,12 @@ public class Room {
                     entity.name(),
                     entity.id(),
                     this.id
+                );
+                this.game.histories().add(
+                    entity,
+                    new Entry("game.history.room.quit")
+                        .add(new LiteralParameter("entity", entity.name()))
+                        .add(new LiteralParameter("room", String.valueOf(this.id)))
                 );
             }
         }

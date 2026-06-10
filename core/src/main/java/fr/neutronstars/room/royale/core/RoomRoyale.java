@@ -1,6 +1,7 @@
 package fr.neutronstars.room.royale.core;
 
 import fr.neutronstars.room.royale.core.game.Games;
+import fr.neutronstars.room.royale.core.history.Histories;
 import fr.neutronstars.room.royale.core.request.Requests;
 import fr.neutronstars.room.royale.core.utils.Configuration;
 import fr.neutronstars.room.royale.core.utils.Matchmaking;
@@ -16,12 +17,14 @@ public class RoomRoyale {
     private final Requests requests;
     private final Scheduler scheduler;
     private final Logger logger;
+    private final Histories histories;
 
     public RoomRoyale(Logger logger, Configuration configuration, Requests requests) {
         this.logger = logger;
         this.configuration = configuration;
         this.requests = requests;
         this.scheduler = new Scheduler(this);
+        this.histories = new Histories(this);
     }
 
     public Logger logger() {
@@ -50,5 +53,9 @@ public class RoomRoyale {
 
     public Scheduler scheduler() {
         return this.scheduler;
+    }
+
+    public Histories histories() {
+        return this.histories;
     }
 }

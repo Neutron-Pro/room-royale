@@ -3,7 +3,7 @@
 
   "damage.inactivity": "You took {{ damage }} damage(s) for inactivity.",
 
-  "potion.use": "You have used potion! +{{ heal }} PV.",
+  "potion.use": "You used potion! +{{ heal }} PV.",
   "potion.empty": "You have not potion!",
 
   "attack.already.eliminate": "Your target is already dead.",
@@ -18,5 +18,34 @@
   "attack.killed.by": "You were killed by {{ killer }}!",
 
   "move.success": "You've moved to another room.",
-  "move.failed": "Unable to join a new room."
+  "move.failed": "Unable to join a new room.",
+
+  "game.history.room.join": "{{ entity }} join the room {{ room }}.",
+  "game.history.room.left": "{{ entity }} left the room {{ room }}.",
+
+  "game.history.entity.eliminate": "{{ entity }} is eliminate. (TOP {{ position }})",
+  "game.history.winner": "{{ entity }} won the Room Royale. (TOP 1)",
+
+  "game.history.action.inactivity": "{{ entity }} takes {{ damage }} damage(s) for inactivity.",
+
+  "game.history.action.heal.success": "{{ entity }} used potion. +{{ heal }} PV.",
+  "game.history.action.heal.failure": "{{ entity }} tried to drink a potion even though he didn't have one.",
+
+  "game.history.action.move.try": "{{ entity }} is trying to change rooms.",
+  "game.history.action.move.failure": "{{ entity }} was unable to change rooms.",
+
+  "game.history.action.attack.already.eliminate": "{{ entity }} tried to attack {{ target }} even though he had already been eliminated.",
+  "game.history.action.attack.left.room": "{{ entity }} tried to attack {{ target }}, but he was no longer in the room.",
+
+  "game.history.action.attack.take": "{{ entity }} took {{ damage }} damage from {{ target }}'s attack.",
+  "game.history.action.attack.take.crit": "{{ entity }} took {{ damage }} damage from {{ target }}'s attack. [CRITIQUE]",
+
+  "game.history.action.attack.dealt": "{{ entity }} dealt {{ damage }} damage to Neutron.",
+  "game.history.action.attack.dealt.crit": "{{ entity }} dealt {{ damage }} damage to Neutron. [CRITIQUE]",
+
+  "game.history.action.kill": "{{ entity }} killed {{ target }}.",
+  "game.history.action.killed.by": "{{ entity }} was killed by {{ target }}.",
+
+  "game.history.action.defense.self": "{{ entity }} defended himself against {{ target }}'s attack.",
+  "game.history.action.defense.failed": "{{ entity }}'s attack on {{ target }} failed."
 }
