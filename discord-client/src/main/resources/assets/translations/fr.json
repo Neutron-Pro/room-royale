@@ -1,0 +1,80 @@
+{
+  "name": "Français",
+  "discord.locale": "FRENCH",
+
+  "game.name": "Room Royale",
+  "game.remaining_players": "\uD83D\uDC65 Joueurs restants : {{ remaining }}/{{ players }}",
+
+  "game.room.slot.empty": "place libre",
+  "game.room.slot.statistic.heal": "❤\uFE0F Vie: {{ value }}/{{ max }}",
+  "game.room.slot.statistic.attack": "⚔\uFE0F Attaque : {{ value }}",
+  "game.room.slot.statistic.defense": "\uD83D\uDEE1\uFE0F Défense : {{ value }}",
+  "game.room.slot.statistic.kills": "\uD83D\uDC80 Éliminations : {{ value }}",
+  "game.room.slot.statistic.potions": "\uD83C\uDF7E Potions : {{ value }}",
+
+  "game.room.action.title": "Action",
+  "game.room.action.empty": "✅ Vous pouvez choisir une action.",
+  "game.room.action.attack": "⚔\uFE0F Attaquer {{ target }}",
+  "game.room.action.defense": "\uD83D\uDEE1\uFE0F Se défendre",
+  "game.room.action.move": "\uD83D\uDDFA\uFE0F Changer de salle",
+  "game.room.action.heal": "\uD83C\uDF7E Prendre une potion",
+
+  "game.room.action.remaining.time.title": "Temps restant",
+  "game.room.action.remaining.time.value": "⏲\uFE0F {{ time }}",
+
+  "game.logs": "Journal",
+  "game.logs.emtpy": "\uD83D\uDDDE\uFE0F Le journal est vide !",
+
+  "game.button.refresh": "\uD83D\uDD04 Actualiser",
+  "game.button.attack": "⚔\uFE0F Attaquer {{ target }}",
+  "game.button.defense": "\uD83D\uDEE1\uFE0F Se défendre",
+  "game.button.move": "\uD83D\uDDFA\uFE0F Changer de salle",
+  "game.button.heal": "\uD83C\uDF7E Prendre une potion",
+
+  "game.winner.title": "Victoire",
+  "game.winner.description": "\uD83C\uDFC6 {{ winner }} a remporté le Room Royale !",
+
+  "game.position.title": "Position",
+  "game.position.value": "\uD83D\uDEA9 Fin de partie ! Vous êtes dans le top {{ position }} !",
+
+  "interaction.cant.interact": "❌ Vous ne pouvez pas effectuer cette interaction !",
+  "interaction.action.already.selected": "❌ Vous avez déjà choisi une action !",
+  "interaction.action.not.valid": "❌ Votre action n'est pas valide !",
+  "interaction.action.request.successed": "✅ Votre action a été traitée. Veuillez actualiser le jeu ou réutiliser la commande /battle.",
+
+  "occurred.error": "❌ Une erreur est survenue. Veuillez réessayer.",
+
+  "command.unauthorized": "❌ Vous n'êtes pas autorisé à utiliser cette commande.",
+
+  "command.stop.name": "stop",
+  "command.stop.description": "Arrête le bot. (Propriétaire uniquement)",
+
+  "command.battle.name": "battle",
+  "command.battle.description": "Jouer à Room Royale",
+  "command.battle.need.registered": "❌ {{ member }}, vous n'êtes pas inscrit ! Utilisez la commande « register » pour rejoindre la file d'attente !",
+  "command.battle.waiting.queue": "✅ {{ member }}, vous êtes dans la file d'attente. Veuillez patienter jusqu'au début de la partie. (Position estimée : {{ position }}, Temps estimé avant le début : {{ time }}s)",
+
+  "command.register.name": "register",
+  "command.register.description": "Rejoindre un Room Royale",
+  "command.register.already.registered": "✅ Vous êtes déjà inscrit ! Veuillez entrer la commande /battle pour continuer.",
+  "command.register.confirm": "✅ Nous avons bien reçu votre demande d'inscription. Veuillez entrer la commande /battle pour continuer.",
+
+  "damage.inactivity": "⚔\uFE0F Vous avez subi {{ damage }} point(s) de dégâts pour inactivité.",
+
+  "potion.use": "\uD83C\uDF7E Vous avez utilisé une potion ! +{{ heal }} PV.",
+  "potion.empty": "❌ Vous n'avez pas de potion !",
+
+  "attack.already.eliminate": "\uD83D\uDC80 La cible est déjà morte.",
+  "attack.left.room": "❌ Votre cible n'est plus dans la salle.",
+  "action.defense.self": "\uD83D\uDEE1\uFE0F Vous vous êtes défendu contre une attaque.",
+  "action.defense.failed": "\uD83D\uDEE1\uFE0F Votre cible a paré votre attaque.",
+  "attack.take": "⚔\uFE0F Vous avez subi {{ damage }} point(s) de dégâts.",
+  "attack.take.crit": "⚔\uFE0F Vous avez subi {{ damage }} point(s) de dégâts. [Critique]",
+  "attack.dealt": "⚔\uFE0F Vous infligez {{ damage }} point(s) de dégâts à votre cible.",
+  "attack.dealt.crit": "⚔\uFE0F Vous infligez {{ damage }} point(s) de dégâts à votre cible. [Critique]",
+  "attack.kill": "\uD83D\uDC80 Vous avez tué {{ killed }} ! (+{{ potions }} potions)",
+  "attack.killed.by": "\uD83D\uDC80 Vous avez été tué par {{ killer }} !",
+
+  "move.success": "\uD83D\uDDFA\uFE0F Vous avez changé de salle.",
+  "move.failed": "❌ Impossible de rejoindre une nouvelle salle."
+}
