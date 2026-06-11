@@ -21,7 +21,7 @@
   "move.failed": "Unable to join a new room.",
 
   "game.history.room.join": "{{ entity }} join the room {{ room }}.",
-  "game.history.room.left": "{{ entity }} left the room {{ room }}.",
+  "game.history.room.quit": "{{ entity }} left the room {{ room }}.",
 
   "game.history.entity.eliminate": "{{ entity }} is eliminate. (TOP {{ position }})",
   "game.history.winner": "{{ entity }} won the Room Royale. (TOP 1)",
