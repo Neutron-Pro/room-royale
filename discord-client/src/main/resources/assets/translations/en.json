@@ -79,7 +79,7 @@
   "move.failed": "❌ Unable to join a new room.",
 
   "game.history.room.join": "\uD83D\uDDFA\uFE0F {{ entity }} join the room {{ room }}.",
-  "game.history.room.left": "\uD83D\uDDFA\uFE0F {{ entity }} left the room {{ room }}.",
+  "game.history.room.quit": "\uD83D\uDDFA\uFE0F {{ entity }} left the room {{ room }}.",
 
   "game.history.entity.eliminate": "\uD83D\uDC80 {{ entity }} is eliminate. (TOP {{ position }})",
   "game.history.winner": "\uD83C\uDFC6 {{ entity }} won the Room Royale. (TOP 1)",
