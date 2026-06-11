@@ -68,6 +68,7 @@ public class Scheduler {
             unregisterGames.forEach(game -> {
                 this.roomRoyale.games().unregister(game);
                 for (final Entity entity : game.entities().all()) {
+                    game.histories().register(entity);
                     if (entity instanceof Player player) {
                         this.roomRoyale.users().unregister(player.user());
                     }
