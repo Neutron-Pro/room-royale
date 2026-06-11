@@ -1,0 +1,356 @@
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --background: #f9fafb;
+  --surface: #ffffff;
+  --text: #111827;
+  --text-light: #6b7280;
+  --border: #e5e7eb;
+  --bg-upload: #f8fafc;
+  --bg-upload-hover: #ffffff;
+  --text-log: #047857;
+  --text-top-1: #fef08a;
+}
+
+/* Thème Sombre automatique si activé */
+[data-theme="dark"] {
+  --background: #0f172a;       /* Bleu nuit très sombre */
+  --surface: #1e293b;          /* Arrière-plan des cartes */
+  --text: #f8fafc;             /* Texte blanc/gris très clair */
+  --text-light: #94a3b8;       /* Texte secondaire */
+  --border: #334155;           /* Bordures sombres */
+  --text-log: #34d399;         /* Vert plus pétant/lumineux pour les logs sur fond noir */
+  --bg-upload: #1e293b;
+  --bg-upload-hover: #334155;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#app {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+.text-light {
+  color: var(--text-light);
+}
+
+/* Style du bouton Thème */
+.btn-theme {
+  background: none;
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.btn-theme:hover {
+  background: var(--background);
+}
+
+/* Ajustement pour la zone d'upload en mode sombre */
+.upload-zone {
+  background: var(--bg-upload);
+}
+.upload-zone:hover {
+  background: var(--background);
+}
+
+/* Ajustement de la liste des logs en mode sombre */
+.log-list, .leaderboard-wrapper {
+  background: var(--background);
+}
+.leaderboard-table tr:hover {
+  background-color: var(--border);
+}
+/* Le TOP 1 en mode sombre (on adoucit le jaune pour que ça ne brûle pas les yeux) */
+[data-theme="dark"] .leaderboard-table tr.top-1 {
+  background-color: #713f12; /* Doré/marron sombre */
+  color: #fef08a;
+}
+[data-theme="dark"] .leaderboard-table th {
+  background: var(--background);
+}
+
+.card {
+  background: var(--surface);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 40px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+/* 1. Page d'accueil / Zone d'import */
+.upload-zone {
+  border: 2px dashed #cbd5e1;
+  padding: 40px 20px;
+  border-radius: 8px;
+  background: var(--bg-upload);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 20px;
+}
+.upload-zone:hover {
+  border-color: var(--primary);
+  background: var(--bg-upload-hover);
+}
+.btn-select {
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 15px;
+  display: inline-block;
+}
+.btn-select:hover { background-color: var(--primary-hover); }
+
+/* 2. Page de chargement / Progress Bar */
+.progress-container {
+  margin-top: 30px;
+}
+.progress-bar-bg {
+  background-color: var(--border);
+  border-radius: 9999px;
+  height: 12px;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 15px;
+}
+.progress-bar-fill {
+  background-color: var(--primary);
+  height: 100%;
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 3. Page Dashboard */
+.dashboard { text-align: left; }
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.dashboard-header-title {
+  margin: 0;
+}
+
+.dashboard-header-subtitle {
+  font-size: .7rem;
+}
+
+.dashboard-header-information {
+  color: var(--text-light);
+  margin: 5px 0 0 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Conteneur des langues */
+.lang-selector {
+  display: flex;
+  background: var(--border);
+  padding: 4px;
+  border-radius: 8px;
+}
+
+/* Boutons individuels de langue */
+.btn-lang {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  color: var(--text-light);
+}
+
+/* État actif */
+.btn-lang.active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.btn-back {
+  color: var(--text);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.btn-back:hover { background: var(--background); }
+
+/* Barre d'onglets */
+.tabs-bar {
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.btn-tab {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-light);
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-tab:hover {
+  color: var(--text);
+}
+
+.btn-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* Tableau des scores */
+.leaderboard-wrapper {
+  max-height: 50vh;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+/* Petit ajustement pour que les bordures du tableau s'alignent proprement */
+.leaderboard-table th {
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 1;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.leaderboard-table th {
+  padding: 12px;
+  border-bottom: 2px solid var(--border);
+  color: var(--text-light);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.leaderboard-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.leaderboard-table tr {
+  background-color: var(--bg-upload);
+}
+
+.leaderboard-table tr:hover {
+  background-color: var(--bg-upload-hover);
+}
+
+/* Style spécial pour le grand gagnant (TOP 1) */
+.leaderboard-table tr.top-1 {
+  background-color: var(--text-top-1); /* Jaune or léger */
+  font-weight: bold;
+}
+
+.pos-cell {
+  width: 80px;
+  font-family: monospace;
+  font-weight: 700;
+}
+
+.kills-cell {
+  width: 100px;
+  text-align: right;
+  font-weight: 600;
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.select-player {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+  max-width: 300px;
+}
+
+.select-player:focus {
+  border-color: var(--primary);
+}
+
+.log-list {
+  max-height: 50vh;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-upload);
+}
+.log-item {
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--border);
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+.log-item:last-child { border-bottom: none; }
+
+.log-item-title {
+  font-weight: 700;
+  margin: 0 0 .7rem;
+}
+
+.log-item-description {
+  color: var(--text-log);
+  margin: 0;
+}

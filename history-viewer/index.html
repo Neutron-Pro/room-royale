@@ -1,0 +1,120 @@
+<!Doctype html>
+<html lang="en">
+
+  <head>
+    <title>Room Royal Viewer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="assets/js/app.js" defer></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <div v-if="step === 'home'" class="card">
+        <button class="btn-theme" @click="toggleTheme" title="Changer de thème">
+          {{ isDarkMode ? '☀️' : '🌙' }}
+        </button>
+        <h2>Analyseur de Partie Room Royale</h2>
+        <p class="text-light">Télécharge ton fichier de log depuis Discord et glisse-le ci-dessous pour analyser le récapitulatif.</p>
+
+        <div class="upload-zone" @click="$refs.fileInput.click()">
+          <svg xmlns="http://www.w3.org/2000/svg" style="height: 48px; width: 48px; margin: 0 auto; color: var(--text-light)" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+          <p style="font-weight: 500; margin: 10px 0 5px 0;">Glisse ton fichier JSON ici</p>
+          <p style="font-size: 0.85rem; color: var(--text-light)">ou clique pour parcourir tes fichiers</p>
+          <button class="btn-select">Choisir un fichier</button>
+        </div>
+        <input type="file" ref="fileInput" accept=".json" style="display: none;" @change="handleFileUpload">
+      </div>
+
+      <div v-if="step === 'loading'" class="card">
+        <h2>Analyse du fichier en cours...</h2>
+        <p style="color: var(--text-light)">Lecture des données de la RoomRoyale</p>
+        <div class="progress-container">
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" :style="{ width: progressWidth + '%' }"></div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 10px;">{{ progressWidth }}%</p>
+        </div>
+      </div>
+
+      <div v-if="step === 'dashboard'" class="card dashboard">
+        <div class="dashboard-header">
+          <div>
+            <h2 class="dashboard-header-title">Rapport de Combat Room Royale</h2>
+            <p class="dashboard-header-subtitle">Archive n°{{ gameName }}</p>
+            <p class="dashboard-header-information">{{ totalActions }} événements enregistrés</p>
+          </div>
+
+          <div class="header-actions">
+            <button class="btn-theme" @click="toggleTheme" title="Changer de thème">
+              {{ isDarkMode ? '☀️' : '🌙' }}
+            </button>
+            <div class="lang-selector">
+              <button :class="['btn-lang', { active: currentLang === 'fr' }]" @click="currentLang = 'fr'">FR</button>
+              <button :class="['btn-lang', { active: currentLang === 'en' }]" @click="currentLang = 'en'">EN</button>
+            </div>
+            <button class="btn-back" @click="reset">Importer un autre fichier</button>
+          </div>
+        </div>
+
+        <div class="tabs-bar">
+          <button :class="['btn-tab', { active: activeTab === 'leaderboard' }]" @click="activeTab = 'leaderboard'">
+            🏆 {{ currentLang === 'fr' ? 'Classement' : 'Leaderboard' }}
+          </button>
+          <button :class="['btn-tab', { active: activeTab === 'timeline' }]" @click="activeTab = 'timeline'">
+            📜 {{ currentLang === 'fr' ? 'Timeline des événements' : 'Event Timeline' }}
+          </button>
+        </div>
+
+        <div v-if="activeTab === 'leaderboard'" class="tab-content">
+          <div class="leaderboard-wrapper">
+            <table class="leaderboard-table">
+              <thead>
+              <tr>
+                <th>Pos.</th>
+                <th>Joueur / Player</th>
+                <th>Kills</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="entity in sortedEntities" :key="entity.profile.id" :class="{ 'top-1': entity.position === 1 }">
+                <td class="pos-cell">#{{ entity.position }}</td>
+                <td class="name-cell">
+                  <span v-if="entity.position === 1">👑 </span>{{ entity.profile.name }}
+                </td>
+                <td class="kills-cell">{{ entity.kills }} ⚔️</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div v-if="activeTab === 'timeline'" class="tab-content">
+          <div class="filter-bar">
+            <label for="player-filter">👤 {{ currentLang === 'fr' ? 'Filtrer par joueur :' : 'Filter by player :' }}</label>
+            <select id="player-filter" v-model="selectedPlayerId" class="select-player">
+              <option value="">✨ {{ currentLang === 'fr' ? 'Tous les joueurs' : 'All players' }}</option>
+              <option v-for="entity in sortedEntities" :key="entity.profile.id" :value="entity.profile.id">
+                {{ entity.profile.name }} (Pos. #{{ entity.position }})
+              </option>
+            </select>
+          </div>
+          <div class="log-list">
+            <div v-for="log in filteredHistories" :key="log.index" class="log-item">
+              <p class="log-item-title">{{ log.profile.name }} (ID: {{ log.profile.id }}) :</p>
+              <p class="log-item-description">{{ translate(log) }}</p>
+            </div>
+
+            <div v-if="filteredHistories.length === 0" style="padding: 20px; text-align: center; color: var(--text-light);">
+              {{ currentLang === 'fr' ? 'Aucune action trouvée pour ce joueur.' : 'No actions found for this player.' }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
