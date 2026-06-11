@@ -12,9 +12,9 @@ Up to 100 players fight across multiple 4-player rooms where observation, antici
 * AI players with multiple difficulty levels
 * Fast turn-based gameplay
 * Discord reaction-based controls
-* Progressive observation system
+* Progressive observation system `in coming...`
 * Temporary kill-based buffs
-* Dynamic room events
+* Dynamic room events `in coming...`
 * Strategic room movement
 * Bluff and mind-game oriented gameplay
 
@@ -37,7 +37,7 @@ Each turn, players have up to 60 seconds to choose one action:
 * 🛡️ Defend
 * 🧪 Use Potion
 * 🚪 Change Room
-* 👁️ Observe
+* 👁️ Observe `in coming...`
 
 If all players choose early, the turn resolves immediately.
 
@@ -45,7 +45,7 @@ The game continues until only one player remains alive.
 
 ---
 
-# Observation System
+# Observation System `in coming...`
 
 All player stats are hidden by default.
 
