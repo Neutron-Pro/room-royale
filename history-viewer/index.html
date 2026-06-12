@@ -28,6 +28,94 @@
           <button class="btn-select">Choisir un fichier</button>
         </div>
         <input type="file" ref="fileInput" accept=".json" style="display: none;" @change="handleFileUpload">
+        <button class="btn-show-rules" @click="showRulesModal = true">
+          📖 {{ currentLang === 'fr' ? 'Consulter les règles du jeu' : 'Read Game Rules' }}
+        </button>
+      </div>
+
+      <div v-if="showRulesModal" class="modal-overlay" @click.self="showRulesModal = false">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h2>📖 {{ currentLang === 'fr' ? 'Règles de la Room Royale' : 'Room Royale Rules' }}</h2>
+            <button class="btn-close-modal" @click="showRulesModal = false">✕</button>
+          </div>
+
+          <div class="rules-container" style="max-height: 75vh;">
+            <div v-if="currentLang === 'fr'">
+              <h3>🎯 Objectif du jeu</h3>
+              <p>Soyez le <strong>dernier survivant</strong> parmi un maximum de 100 joueurs (des IA complètent la partie si nécessaire).</p>
+
+              <div class="rules-grid">
+                <div class="rules-card">
+                  <h4>🏠 Les Salles</h4>
+                  <p>Les joueurs sont répartis dans des salles de <strong>4 joueurs maximum</strong>. Vous ne pouvez interagir qu'avec les joueurs de votre salle. Lorsqu'une salle devient vide, elle ferme définitivement.</p>
+                </div>
+                <div class="rules-card">
+                  <h4>📊 Stats de base</h4>
+                  <ul>
+                    <li><strong>HP :</strong> 100</li>
+                    <li><strong>ATK :</strong> 25 (Max: 35)</li>
+                    <li><strong>DEF :</strong> 0 (Max: 15)</li>
+                    <li><strong>Potions :</strong> 3</li>
+                  </ul>
+                </div>
+              </div>
+
+              <h3>🔄 Déroulement d'un tour (60s max)</h3>
+              <p>Chaque tour, choisissez une action. Si toute la salle répond avant les 60s, le tour se résout immédiatement.</p>
+
+              <div class="actions-list">
+                <div class="action-rule-item"><strong>⚔️ Attaquer :</strong> Ciblez un joueur (1 à 4). <br><small>Dégâts = ATK - DEF de la cible. (5% Critique = Dégâts × 2).</small></div>
+                <div class="action-rule-item"><strong>🛡️ Se défendre :</strong> Annule 100% des dégâts. <br><small>Après 3 défenses consécutives, l'efficacité chute à 50%.</small></div>
+                <div class="action-rule-item"><strong>🧪 Potion :</strong> Rend 100% HP. Stock des autres caché. (3 au début + 1 par kill).</div>
+                <div class="action-rule-item"><strong>🚪 Changer de salle :</strong> Rejoint une salle de 1 à 3 joueurs.</div>
+              </div>
+
+              <blockquote class="warning-block">💀 <strong>Inactivité :</strong> 10% de vos HP restants en dégâts si vous ne jouez pas.</blockquote>
+
+              <h3>🏆 Éliminations & Bonus (Mode Berserk)</h3>
+              <p>Chaque kill octroie un bonus temporaire de <strong>5 tours</strong> :</p>
+              <ul>
+                <li>Premier kill : <strong>+5 ATK / +2 DEF / +1 Potion</strong>.</li>
+                <li>Kill sup. enchaîné : Cumul (<strong>+2 ATK / +1 DEF</strong>) et <strong>+4 tours</strong> au compteur.</li>
+              </ul>
+
+              <h3>👁️ Informations visibles</h3>
+              <p>Vous voyez les HP, ATK, DEF et Kills des adversaires. Les pseudos réels et les potions restent cachés.</p>
+            </div>
+
+            <div v-if="currentLang === 'en'">
+              <h3>🎯 Main Objective</h3>
+              <p>Be the <strong>last survivor</strong> standing among up to 100 players.</p>
+
+              <div class="rules-grid">
+                <div class="rules-card">
+                  <h4>🏠 The Rooms</h4>
+                  <p>Players are split into rooms of <strong>4 players max</strong>. Empty rooms close forever.</p>
+                </div>
+                <div class="rules-card">
+                  <h4>📊 Base Stats</h4>
+                  <ul>
+                    <li><strong>HP:</strong> 100</li>
+                    <li><strong>ATK:</strong> 25 (Max: 35)</li>
+                    <li><strong>DEF:</strong> 0 (Max: 15)</li>
+                    <li><strong>Potions:</strong> 3</li>
+                  </ul>
+                </div>
+              </div>
+
+              <h3>🔄 Turn Progression (60s max)</h3>
+              <div class="actions-list">
+                <div class="action-rule-item"><strong>⚔️ Attack:</strong> Target a player. <br><small>Damage = ATK - DEF. (5% Crit = Damage × 2).</small></div>
+                <div class="action-rule-item"><strong>🛡️ Defend:</strong> Blocks 100%. <br><small>Drops to 50% after 3 consecutive uses.</small></div>
+                <div class="action-rule-item"><strong>🧪 Potion:</strong> Restores 100% HP.</div>
+                <div class="action-rule-item"><strong>🚪 Change Room:</strong> Moves to a room with 1-3 players.</div>
+              </div>
+
+              <blockquote class="warning-block">💀 <strong>Inactivity:</strong> Deals 10% of remaining HP if AFK.</blockquote>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div v-if="step === 'loading'" class="card">
@@ -67,6 +155,9 @@
           </button>
           <button :class="['btn-tab', { active: activeTab === 'timeline' }]" @click="activeTab = 'timeline'">
             📜 {{ currentLang === 'fr' ? 'Timeline des événements' : 'Event Timeline' }}
+          </button>
+          <button :class="['btn-tab', { active: activeTab === 'rules' }]" @click="activeTab = 'rules'">
+            📖 {{ currentLang === 'fr' ? 'Règles du jeu' : 'Game Rules' }}
           </button>
         </div>
 
@@ -113,6 +204,121 @@
               {{ currentLang === 'fr' ? 'Aucune action trouvée pour ce joueur.' : 'No actions found for this player.' }}
             </div>
           </div>
+        </div>
+
+        <div v-if="activeTab === 'rules'" class="tab-content rules-container">
+          <div v-if="currentLang === 'fr'">
+            <h3>🎯 Objectif du jeu</h3>
+            <p>Soyez le <strong>dernier survivant</strong> parmi un maximum de 100 joueurs (des IA complètent la partie si nécessaire).</p>
+
+            <div class="rules-grid">
+              <div class="rules-card">
+                <h4>🏠 Les Salles</h4>
+                <p>Les joueurs sont répartis dans des salles de <strong>4 joueurs maximum</strong>. Vous ne pouvez interagir qu'avec les joueurs de votre salle. Lorsqu'une salle devient vide, elle ferme définitivement.</p>
+              </div>
+              <div class="rules-card">
+                <h4>📊 Stats de base</h4>
+                <ul>
+                  <li><strong>HP :</strong> 100</li>
+                  <li><strong>ATK :</strong> 25 (Max: 35 avec bonus)</li>
+                  <li><strong>DEF :</strong> 0 (Max: 15 avec bonus)</li>
+                  <li><strong>Potions :</strong> 3</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3>🔄 Déroulement d'un tour (60s max)</h3>
+            <p>Chaque tour, choisissez une action. Si toute la salle répond avant les 60s, le tour se résout immédiatement.</p>
+
+            <div class="actions-list">
+              <div class="action-rule-item">
+                <strong>⚔️ Attaquer :</strong> Ciblez un joueur (numéro 1 à 4).
+                <br><small>Dégâts = ATK - DEF de la cible. (5% de chance de Coup Critique = Dégâts × 2).</small>
+              </div>
+              <div class="action-rule-item">
+                <strong>🛡️ Se défendre :</strong> Annule 100% des dégâts.
+                <br><small>Attention : après 3 défenses consécutives, l'efficacité chute à 50% tant que l'action est répétée.</small>
+              </div>
+              <div class="action-rule-item">
+                <strong>🧪 Potion :</strong> Rend instantanément 100% de vos HP. Les potions restantes des autres sont cachées.
+              </div>
+              <div class="action-rule-item">
+                <strong>🚪 Changer de salle :</strong> Tente de rejoindre une salle contenant entre 1 et 3 joueurs. Échoue si aucune salle n'est valide.
+              </div>
+            </div>
+
+            <blockquote class="warning-block">
+              💀 <strong>Inactivité :</strong> Si vous ne choisissez rien, vous subissez <strong>10% de vos HP restants</strong> en dégâts d'inactivité.
+            </blockquote>
+
+            <h3>🏆 Éliminations & Bonus (Mode Berserk)</h3>
+            <p>Chaque élimination (kill) vous octroie un bonus temporaire de <strong>5 tours</strong> :</p>
+            <ul>
+              <li>Premier kill : <strong>+5 ATK / +2 DEF / +1 Potion</strong>.</li>
+              <li>Kill supplémentaire pendant le décompte : Cumul des bonus (<strong>+2 ATK / +1 DEF</strong>) et le compteur gagne <strong>+4 tours</strong>.</li>
+            </ul>
+            <p><small>⚠️ Si le compteur tombe à 0, tous les bonus accumulés disparaissent et les stats reviennent à leur valeur de base.</small></p>
+
+            <h3>👁️ Informations visibles</h3>
+            <p>Dans votre salle, vous voyez les <strong>HP, ATK, DEF et le nombre de Kills</strong> de vos adversaires. Leurs pseudos réels et leurs stocks de potions restent <strong>strictement cachés</strong>.</p>
+          </div>
+
+          <div v-slot v-if="currentLang === 'en'">
+            <h3>🎯 Main Objective</h3>
+            <p>Be the <strong>last survivor</strong> standing among up to 100 players (AI bots fill the game if needed).</p>
+
+            <div class="rules-grid">
+              <div class="rules-card">
+                <h4>🏠 The Rooms</h4>
+                <p>Players are split into rooms of <strong>4 players max</strong>. You can only interact with players inside your own room. When a room becomes empty, it closes forever.</p>
+              </div>
+              <div class="rules-card">
+                <h4>📊 Base Stats</h4>
+                <ul>
+                  <li><strong>HP:</strong> 100</li>
+                  <li><strong>ATK:</strong> 25 (Max: 35 with bonuses)</li>
+                  <li><strong>DEF:</strong> 0 (Max: 15 with bonuses)</li>
+                  <li><strong>Potions:</strong> 3</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3>🔄 Turn Progression (60s max)</h3>
+            <p>Each turn, pick an action. If everyone in the room locks their action early, the turn resolves immediately.</p>
+
+            <div class="actions-list">
+              <div class="action-rule-item">
+                <strong>⚔️ Attack:</strong> Target a player (numbered 1 to 4).
+                <br><small>Damage = your ATK - target's DEF. (5% Critical Strike chance = Damage × 2).</small>
+              </div>
+              <div class="action-rule-item">
+                <strong>🛡️ Defend:</strong> Blocks 100% of incoming damage.
+                <br><small>Warning: after 3 consecutive defenses, efficiency drops to 50% as long as you keep defending.</small>
+              </div>
+              <div class="action-rule-item">
+                <strong>🧪 Potion:</strong> Instantly restores 100% HP. Other players' remaining potions are hidden.
+              </div>
+              <div class="action-rule-item">
+                <strong>🚪 Change Room:</strong> Try to move to another room with 1 to 3 players. Fails if no valid room is found.
+              </div>
+            </div>
+
+            <blockquote class="warning-block">
+              💀 <strong>Inactivity:</strong> Failing to pick an action deals <strong>10% of your remaining HP</strong> as inactivity damage.
+            </blockquote>
+
+            <h3>🏆 Kills & Buffs</h3>
+            <p>Securing a kill grants a temporary buff lasting for <strong>5 turns</strong>:</p>
+            <ul>
+              <li>First kill: <strong>+5 ATK / +2 DEF / +1 Potion</strong>.</li>
+              <li>Chain kill during countdown: Buffs stack (<strong>+2 ATK / +1 DEF</strong>) and the timer gets <strong>+4 turns</strong>.</li>
+            </ul>
+            <p><small>⚠️ If the countdown reaches 0, all kill-related buffs disappear and stats reset to base values.</small></p>
+
+            <h3>👁️ Visible Information</h3>
+            <p>Inside your room, you can see your opponents' <strong>HP, ATK, DEF, and Kill count</strong>. Their real names and remaining potions are <strong>strictly hidden</strong>.</p>
+          </div>
+
         </div>
       </div>
     </div>

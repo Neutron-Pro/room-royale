@@ -75,6 +75,7 @@ createApp({
 
         const activeTab = ref('leaderboard');
         const selectedPlayerId = ref('');
+        const showRulesModal = ref(false);
 
         document.documentElement.setAttribute('data-theme', savedTheme);
 
@@ -181,7 +182,8 @@ createApp({
             filteredHistories,
             translate,
             handleFileUpload,
-            reset
+            reset,
+            showRulesModal
         };
     }
 }).mount('#app');

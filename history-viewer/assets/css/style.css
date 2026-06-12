@@ -124,6 +124,83 @@ body {
 }
 .btn-select:hover { background-color: var(--primary-hover); }
 
+/* Bouton Règles sur la page d'accueil */
+.btn-show-rules {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-light);
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.2s;
+}
+.btn-show-rules:hover {
+  color: var(--text);
+  border-color: var(--text-light);
+  background: var(--bg-upload);
+}
+
+/* L'arrière-plan semi-transparent qui couvre tout l'écran */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(4px); /* Effet flouté derrière la pop-up */
+}
+
+/* La carte de la pop-up */
+.modal-card {
+  background: var(--surface);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 800px;
+  padding: 30px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+/* Bouton de fermeture (la croix) */
+.btn-close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-light);
+  transition: color 0.2s;
+}
+.btn-close-modal:hover {
+  color: var(--text);
+}
+
+/* Animation d'ouverture fluide */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 /* 2. Page de chargement / Progress Bar */
 .progress-container {
   margin-top: 30px;
@@ -353,4 +430,79 @@ body {
 .log-item-description {
   color: var(--text-log);
   margin: 0;
+}
+
+/* Container global des règles */
+.rules-container {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-right: 15px;
+  text-align: left;
+}
+
+.rules-container h3 {
+  margin-top: 25px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  color: var(--primary);
+}
+
+/* Grille pour les salles et stats */
+.rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 15px 0;
+}
+
+.rules-card {
+  background: var(--bg-upload);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.rules-card h4 {
+  margin: 0 0 10px 0;
+  color: var(--text);
+}
+
+.rules-card ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* Liste des actions */
+.actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.action-rule-item {
+  background: var(--surface);
+  border-left: 4px solid var(--primary);
+  padding: 10px 15px;
+  border-radius: 0 6px 6px 0;
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Bloc d'alerte pour l'inactivité */
+.warning-block {
+  background: #fef2f2;
+  border-left: 4px solid #ef4444;
+  color: #991b1b;
+  margin: 20px 0;
+  padding: 12px 15px;
+  border-radius: 0 6px 6px 0;
+}
+
+/* Adaptation du bloc d'alerte en Mode Sombre */
+[data-theme="dark"] .warning-block {
+  background: #451a1a;
+  color: #fca5a5;
+  border-left-color: #f87171;
 }
