@@ -33,8 +33,14 @@ public class Embeds {
             .setDescription(
                 translation.translate(
                     new Entry("game.remaining_players")
-                        .add(new LiteralParameter("remaining", game.entities().counter().remaining()))
-                        .add(new LiteralParameter("players", game.entities().counter().total()))
+                        .add(new LiteralParameter("remaining", String.valueOf(game.entities().counter().remaining())))
+                        .add(new LiteralParameter("players", String.valueOf(game.entities().counter().total())))
+                )
+            )
+            .setFooter(
+                translation.translate(
+                    new Entry("game.identifier")
+                        .add(new LiteralParameter("identifier", game.id().toString()))
                 )
             );
 
@@ -78,22 +84,32 @@ public class Embeds {
                     .append(
                         translation.translate(
                             new Entry("game.room.slot.statistic.heal")
-                                .add(new LiteralParameter("value", heal.of()))
-                                .add(new LiteralParameter("max", heal.origin()))
+                                .add(new LiteralParameter("value", String.valueOf(heal.of())))
+                                .add(new LiteralParameter("max", String.valueOf(heal.origin())))
                         )
                     )
                     .append("\n")
                     .append(
                         translation.translate(
                             new Entry("game.room.slot.statistic.attack")
-                                .add(new LiteralParameter("value", entity.statistics().of(AttackStatistic.class).of()))
+                                .add(
+                                    new LiteralParameter(
+                                        "value",
+                                        String.valueOf(entity.statistics().of(AttackStatistic.class).of())
+                                    )
+                                )
                         )
                     )
                     .append("\n")
                     .append(
                         translation.translate(
                             new Entry("game.room.slot.statistic.defense")
-                                .add(new LiteralParameter("value", entity.statistics().of(DefenseStatistic.class).of()))
+                                .add(
+                                    new LiteralParameter(
+                                        "value",
+                                        String.valueOf(entity.statistics().of(DefenseStatistic.class).of())
+                                    )
+                                )
                         )
                     );
 
@@ -103,7 +119,7 @@ public class Embeds {
                         .append(
                             translation.translate(
                                 new Entry("game.room.slot.statistic.kills")
-                                    .add(new LiteralParameter("value", kills.of()))
+                                    .add(new LiteralParameter("value", String.valueOf(kills.of())))
                             )
                         );
                 }
@@ -115,7 +131,7 @@ public class Embeds {
                                     .add(
                                         new LiteralParameter(
                                             "value",
-                                            entity.statistics().of(PotionStatistic.class).of()
+                                            String.valueOf(entity.statistics().of(PotionStatistic.class).of())
                                         )
                                     )
                             )
@@ -135,7 +151,12 @@ public class Embeds {
                     switch (action) {
                         case AttackAction attackAction -> translation.translate(
                             new Entry("game.room.action.attack")
-                                .add(new LiteralParameter("target", attackAction.target().roomPosition()))
+                                .add(
+                                    new LiteralParameter(
+                                        "target",
+                                        String.valueOf(attackAction.target().roomPosition())
+                                    )
+                                )
                         );
                         case DefenseAction _ -> translation.translate(new Entry("game.room.action.defense"));
                         case MoveAction _ -> translation.translate(new Entry("game.room.action.move"));
@@ -171,7 +192,7 @@ public class Embeds {
                     translation.translate(new Entry("game.position.title")),
                     translation.translate(
                         new Entry("game.position.value")
-                            .add(new LiteralParameter("position", position.of()))
+                            .add(new LiteralParameter("position", String.valueOf(position.of())))
                     ),
                     false
                 );

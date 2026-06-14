@@ -1,5 +1,6 @@
 package fr.neutronstars.room.royale.core.game.entity.controller;
 
+import fr.neutronstars.room.royale.core.game.Game;
 import fr.neutronstars.room.royale.core.game.action.AttackAction;
 import fr.neutronstars.room.royale.core.game.action.DefenseAction;
 import fr.neutronstars.room.royale.core.game.action.HealAction;
@@ -8,10 +9,29 @@ import fr.neutronstars.room.royale.core.game.entity.Entity;
 import fr.neutronstars.room.royale.core.game.entity.statistics.HealStatistic;
 import fr.neutronstars.room.royale.core.game.entity.statistics.PotionStatistic;
 import fr.neutronstars.room.royale.core.game.room.Room;
+import fr.neutronstars.room.royale.core.game.settings.SettingOf;
+import fr.neutronstars.room.royale.core.game.settings.Settings;
 
 public class AgentNoviceController extends AgentController {
-    public AgentNoviceController(Entity entity, long roundTime) {
-        super(entity, roundTime / 2L);
+    public AgentNoviceController(Entity entity) {
+        super(entity);
+    }
+
+    @Override
+    public long maxReactionTime() {
+        final Game game = this.entity.game();
+        return Math.max(
+            1,
+            game.settings()
+                .<Long>of(
+                    (
+                        game.settings().<Boolean>of(SettingOf.ACCELERATE_TIME.identifier()).of()
+                            ? SettingOf.ACCELERATE_TIME_PER_ROOM
+                            : SettingOf.TIME_PER_ROOM
+                    ).identifier()
+                )
+                .of() / 2L
+        ) * 1000L;
     }
 
     @Override

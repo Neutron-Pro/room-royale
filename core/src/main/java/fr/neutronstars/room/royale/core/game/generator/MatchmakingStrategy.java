@@ -30,11 +30,9 @@ public class MatchmakingStrategy implements Strategy<Entities> {
     public Entities create() {
         final Set<Entity> entities = new HashSet<>();
         final AtomicInteger agentIndex = new AtomicInteger();
-        final long roomTime = (((Number) SettingOf.TIME_PER_ROOM.value()).longValue()) * 1000L;
         final Supplier<Entity> generateAI = () -> new AgentEntity(
             UUID.randomUUID(),
             "Agent " + agentIndex.incrementAndGet(),
-            roomTime,
             AgentNoviceController::new
         );
         final Function<User, Entity> convertToPlayer = user -> {

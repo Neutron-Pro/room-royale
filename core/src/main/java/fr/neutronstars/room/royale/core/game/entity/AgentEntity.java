@@ -8,9 +8,9 @@ import java.util.UUID;
 public class AgentEntity extends Entity {
     private final Controller controller;
 
-    public AgentEntity(UUID id, String name, long roundTime, ControllerFactory controllerFactory) {
+    public AgentEntity(UUID id, String name, ControllerFactory controllerFactory) {
         super(id, name);
-        this.controller = controllerFactory.create(this, roundTime);
+        this.controller = controllerFactory.create(this);
     }
 
     public void update(long currentTime) {

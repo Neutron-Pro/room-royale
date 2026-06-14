@@ -2,6 +2,8 @@ package fr.neutronstars.room.royale.core.game.settings;
 
 public enum SettingOf {
     TIME_PER_ROOM("time.per.room", 60L),
+    ACCELERATE_TIME_PER_ROOM("accelerate.time.per.room", 10L),
+    ACCELERATE_TIME("accelerate.time", false),
     INACTIVITY_DAMAGE_PERCENT("inactivity.damage.percent", 0.1d),
     MAX_HEAL("max.heal", 100),
     POTION("potion", 3),

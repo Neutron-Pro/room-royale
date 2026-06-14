@@ -30,12 +30,14 @@
   "game.button.defense": "\uD83D\uDEE1\uFE0F Defense",
   "game.button.move": "\uD83D\uDDFA\uFE0F Change Room",
   "game.button.heal": "\uD83C\uDF7E Take a potion",
+  "game.button.download": "\uD83D\uDCDC Download the report",
 
   "game.winner.title": "Victory",
   "game.winner.description": "\uD83C\uDFC6 {{ winner }} won the Room Royale !",
 
   "game.position.title": "Position",
   "game.position.value": "\uD83D\uDEA9 Game over ! You're in the top {{ position }}!",
+  "game.identifier": "Identifier : {{ identifier }}",
 
   "interaction.cant.interact": "❌ You can't perform this interaction!",
   "interaction.action.already.selected": "❌ You've already chosen an action!",
@@ -59,6 +61,11 @@
   "command.register.already.registered": "✅ You're already registered! Please enter the command /battle to continue.",
   "command.register.confirm": "✅ We have received your registration request. Please enter the command /battle to continue.",
 
+  "command.download.name": "download",
+  "command.download.description": "Download the Room Royale battle report.",
+  "command.download.option.identifier.name": "Identifier",
+  "command.download.option.identifier.description": "Room Royale game identifier.",
+
   "damage.inactivity": "⚔\uFE0F You took {{ damage }} damage(s) for inactivity.",
 
   "potion.use": "\uD83C\uDF7E You used potion! +{{ heal }} PV.",
@@ -77,6 +84,11 @@
 
   "move.success": "\uD83D\uDDFA\uFE0F You've moved to another room.",
   "move.failed": "❌ Unable to join a new room.",
+
+  "download.not.ready": "❌ The Room Royale battle report with the ID `{{ identifier }}` is not available yet. Please wait!",
+  "download.not.valid": "❌ No Room Royale battle report found with the ID `{{ identifier }}`!",
+  "download.message": "\uD83D\uDCDC {{ member }}, you can download the following file and import it into the reader to view the Room Royale battle report {{ identifier }}.",
+  "download.button.reader": "\uD83D\uDCDC Room Royale Reader",
 
   "game.history.room.join": "\uD83D\uDDFA\uFE0F {{ entity }} join the room {{ room }}.",
   "game.history.room.quit": "\uD83D\uDDFA\uFE0F {{ entity }} left the room {{ room }}.",

@@ -29,7 +29,7 @@ public class Histories {
             .create();
     }
 
-    private File folder() throws IOException {
+    public File folder() throws IOException {
         final File folder = new File("histories");
         if (!folder.exists() && !folder.mkdirs()) {
             this.roomRoyale.logger().error("Could not create folder {}", folder.getAbsolutePath());
@@ -38,9 +38,13 @@ public class Histories {
         return folder;
     }
 
+    public File fileOf(UUID id) throws IOException {
+        return new File(this.folder(), id.toString() + ".json");
+    }
+
     public Optional<GameHistories> load(UUID id) {
         try {
-            final File file = new File(this.folder(), id.toString() + ".json");
+            final File file = this.fileOf(id);
             if (!file.exists()) {
                 this.roomRoyale.logger().error("Could not find file {}", file.getAbsolutePath());
                 return Optional.empty();
@@ -60,7 +64,7 @@ public class Histories {
     public void persist(Game game) {
         try {
             final String json = this.gson.toJson(game.histories());
-            final File file = new File(this.folder(), game.id().toString() + ".json");
+            final File file = this.fileOf(game.id());
             if (file.exists()) {
                 this.roomRoyale.logger().error("The file already exists {}", file.getAbsolutePath());
                 return;

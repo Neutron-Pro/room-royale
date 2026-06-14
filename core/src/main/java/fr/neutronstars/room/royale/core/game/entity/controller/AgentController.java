@@ -4,14 +4,13 @@ import fr.neutronstars.room.royale.core.game.entity.Entity;
 
 public abstract class AgentController implements Controller {
     protected final Entity entity;
-    protected final long maxReactionTime;
     protected long reactionTime = -1;
 
-    protected AgentController(Entity entity, long maxReactionTime) {
+    protected AgentController(Entity entity) {
         this.entity = entity;
-        this.maxReactionTime = maxReactionTime;
-
     }
+
+    public abstract long maxReactionTime();
 
     @Override
     public void update(long currentTime) {
@@ -26,7 +25,7 @@ public abstract class AgentController implements Controller {
 
     protected void resetReactionTime(long currentTime) {
         this.reactionTime = currentTime + this.entity.room()
-            .map(room -> room.game().randomizer().next(this.maxReactionTime))
+            .map(room -> room.game().randomizer().next(this.maxReactionTime()))
             .orElse(0L);
     }
 

@@ -19,6 +19,7 @@ public class RoomUpdater implements Updater {
     private final Room room;
 
     private long lastActionTime;
+    private boolean accelerateTime;
 
     public RoomUpdater(Room room) {
         this.room = room;
@@ -33,7 +34,13 @@ public class RoomUpdater implements Updater {
             this.lastActionTime = currentTime;
         }
         final long actionTime = this.room.game().settings()
-            .<Long>of(SettingOf.TIME_PER_ROOM.identifier()).of() * 1000L;
+            .<Long>of(
+                (this.accelerateTime
+                    ? SettingOf.ACCELERATE_TIME_PER_ROOM
+                    : SettingOf.TIME_PER_ROOM
+                ).identifier()
+            )
+            .of() * 1000L;
 
         final List<Action> actions = Stream.of(this.room.entities())
             .filter(Objects::nonNull)
@@ -58,6 +65,7 @@ public class RoomUpdater implements Updater {
         }
         this.room.game().logger().trace("Update round for the room {}", this.room.id());
         this.lastActionTime = currentTime;
+        this.accelerateTime = this.room.game().settings().<Boolean>of(SettingOf.ACCELERATE_TIME.identifier()).of();
 
         for (final Entity entity : this.room.entities()) {
             if (entity != null) {
