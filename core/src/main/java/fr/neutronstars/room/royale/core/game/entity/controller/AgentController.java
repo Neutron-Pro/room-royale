@@ -4,10 +4,17 @@ import fr.neutronstars.room.royale.core.game.entity.Entity;
 
 public abstract class AgentController implements Controller {
     protected final Entity entity;
+    protected final String prefix;
     protected long reactionTime = -1;
 
-    protected AgentController(Entity entity) {
+    protected AgentController(Entity entity, String prefix) {
         this.entity = entity;
+        this.prefix = prefix;
+    }
+
+    @Override
+    public String prefix() {
+        return this.prefix;
     }
 
     public abstract long maxReactionTime();

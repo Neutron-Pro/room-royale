@@ -5,6 +5,9 @@ import fr.neutronstars.room.royale.core.game.entity.Entity;
 import fr.neutronstars.room.royale.core.game.entity.journal.Entry;
 import fr.neutronstars.room.royale.core.game.entity.journal.LiteralParameter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Room {
     private final Entity[] entities;
     private final Lock lock = new Lock();
@@ -33,6 +36,16 @@ public class Room {
 
     public Entity[] entities() {
         return this.entities;
+    }
+
+    public List<Entity> entityList() {
+        final List<Entity> entities = new ArrayList<>();
+        for (Entity entity : this.entities) {
+            if (entity != null) {
+                entities.add(entity);
+            }
+        }
+        return entities;
     }
 
     public int entityCount() {

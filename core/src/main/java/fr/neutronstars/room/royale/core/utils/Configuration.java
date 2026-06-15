@@ -8,6 +8,13 @@ public record Configuration(
     long endTimeBeforeRemoved,
 
     int players,
-    int playerPerRoom
+    int playerPerRoom,
+
+    int noviceAgentWeight,
+    int normalAgentWeight,
+    int expertAgentWeight
 ) {
+    public int totalAgentWeight() {
+        return this.noviceAgentWeight + this.normalAgentWeight + this.expertAgentWeight;
+    }
 }

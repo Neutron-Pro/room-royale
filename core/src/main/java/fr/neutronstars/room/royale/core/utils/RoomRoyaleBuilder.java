@@ -26,6 +26,10 @@ public class RoomRoyaleBuilder {
     private int players = 100;
     private int playerPerRoom = 4;
 
+    private int noviceAgentWeight = 33;
+    private int normalAgentWeight = 33;
+    private int expertAgentWeight = 33;
+
     private RoomRoyaleBuilder(Logger logger) {
         this.logger = logger;
         this.requests = new Requests(logger);
@@ -65,6 +69,21 @@ public class RoomRoyaleBuilder {
         return this;
     }
 
+    public RoomRoyaleBuilder noviceAgentWeight(int noviceAgentWeight) {
+        this.noviceAgentWeight = noviceAgentWeight;
+        return this;
+    }
+
+    public RoomRoyaleBuilder normalAgentWeight(int normalAgentWeight) {
+        this.normalAgentWeight = normalAgentWeight;
+        return this;
+    }
+
+    public RoomRoyaleBuilder expertAgentWeight(int expertAgentWeight) {
+        this.expertAgentWeight = expertAgentWeight;
+        return this;
+    }
+
     public RoomRoyaleBuilder withDefaultRequests() {
         this.requests
             .register(RegisterUserRequest.class, new RegisterUserRequestHandler())
@@ -81,7 +100,10 @@ public class RoomRoyaleBuilder {
                 this.startTimeBeforeCreated,
                 this.endTimeBeforeRemoved,
                 this.players,
-                this.playerPerRoom
+                this.playerPerRoom,
+                this.noviceAgentWeight,
+                this.normalAgentWeight,
+                this.expertAgentWeight
             ),
             this.requests
         );

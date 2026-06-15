@@ -13,6 +13,11 @@ public class AgentEntity extends Entity {
         this.controller = controllerFactory.create(this);
     }
 
+    @Override
+    public String name() {
+        return this.controller.prefix() + " " + super.name();
+    }
+
     public void update(long currentTime) {
         if (this.action == null) {
             this.controller.update(currentTime);
