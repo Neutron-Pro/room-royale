@@ -3,6 +3,7 @@ package fr.neutronstars.room.royale.core.game.entity.controller;
 import fr.neutronstars.room.royale.core.game.Game;
 import fr.neutronstars.room.royale.core.game.action.*;
 import fr.neutronstars.room.royale.core.game.entity.Entity;
+import fr.neutronstars.room.royale.core.game.entity.statistics.EnergyStatistic;
 import fr.neutronstars.room.royale.core.game.entity.statistics.HealStatistic;
 import fr.neutronstars.room.royale.core.game.entity.statistics.PotionStatistic;
 import fr.neutronstars.room.royale.core.game.room.Room;
@@ -66,6 +67,14 @@ public class AgentNoviceController extends AgentController {
             this.entity.action(new ObservationAction(this.entity, currentTime));
             return;
         }
-        this.entity.action(new AttackAction(this.entity, target, currentTime));
+
+        this.entity.action(
+            new AttackAction(
+                this.entity,
+                target,
+                this.entity.statistics().of(EnergyStatistic.class).fully() && room.game().randomizer().rate(20),
+                currentTime
+            )
+        );
     }
 }

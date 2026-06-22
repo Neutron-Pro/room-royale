@@ -139,6 +139,7 @@ public class AgentExpertController extends AgentController {
                 new AttackAction(
                     this.entity,
                     room.game().randomizer().pick(lowHealEntities),
+                    false,
                     currentTime
                 )
             );
@@ -159,16 +160,23 @@ public class AgentExpertController extends AgentController {
             return;
         }
 
+        final Entity target;
+
         if (!highHealEntities.isEmpty() && room.game().randomizer().rate(70)) {
-            this.entity.action(
-                new AttackAction(
-                    this.entity,
-                    room.game().randomizer().pick(highHealEntities),
-                    currentTime
-                )
-            );
-            return;
+            target = room.game().randomizer().pick(highHealEntities);
+        } else {
+            target = room.game().randomizer().pick(entities);
         }
-        this.entity.action(new AttackAction(this.entity, room.game().randomizer().pick(entities), currentTime));
+
+        this.entity.action(
+            new AttackAction(
+                this.entity,
+                target,
+                this.entity.statistics().of(EnergyStatistic.class).fully()
+                    && target.statistics().of(HealStatistic.class).of()
+                        <= ((attack.of() - target.statistics().of(DefenseStatistic.class).of()) * 2),
+                currentTime
+            )
+        );
     }
 }
