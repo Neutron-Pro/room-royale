@@ -17,10 +17,11 @@ const translations = {
         "game.history.action.move.failure": "\uD83D\uDDFA\uFE0F {{ entity }} was unable to change rooms.",
 
         "game.history.action.attack.already.eliminate": "⚔\uFE0F {{ entity }} tried to attack {{ target }} even though he had already been eliminated.",
+        "game.history.action.attack.special.energy.empty": "⚔\uFE0F {{ entity }} tried to attack {{ target }} with his special attack, however, his energy gauge isn't full.",
         "game.history.action.attack.left.room": "⚔\uFE0F {{ entity }} tried to attack {{ target }}, but he was no longer in the room.",
 
-        "game.history.action.attack.take": "⚔\uFE0F {{ entity }} took {{ damage }} damage from {{ target }}'s attack.",
-        "game.history.action.attack.take.crit": "⚔\uFE0F {{ entity }} took {{ damage }} damage from {{ target }}'s attack. [CRITIQUE]",
+        "game.history.action.attack.take": "⚔\uFE0F {{ entity }} took {{ damage }} damage from {{ target }}'s attack. (⚡ + {{ energy }} energy points)",
+        "game.history.action.attack.take.crit": "⚔\uFE0F {{ entity }} took {{ damage }} damage from {{ target }}'s attack. (⚡ + {{ energy }} energy points) [CRITIQUE]",
 
         "game.history.action.attack.dealt": "⚔\uFE0F {{ entity }} dealt {{ damage }} damage to Neutron.",
         "game.history.action.attack.dealt.crit": "⚔\uFE0F {{ entity }} dealt {{ damage }} damage to Neutron. [CRITIQUE]",
@@ -28,10 +29,11 @@ const translations = {
         "game.history.action.kill": "\uD83D\uDC80 {{ entity }} killed {{ target }}.",
         "game.history.action.killed.by": "\uD83D\uDC80 {{ entity }} was killed by {{ target }}.",
 
-        "game.history.action.defense.self": "\uD83D\uDEE1\uFE0F {{ entity }} defended himself against {{ target }}'s attack.",
+        "game.history.action.defense.self": "\uD83D\uDEE1\uFE0F {{ entity }} defended himself against {{ target }}'s attack. (⚡ + {{ energy }} energy points)",
         "game.history.action.defense.failed": "\uD83D\uDEE1\uFE0F {{ entity }}'s attack on {{ target }} failed.",
 
-        "game.history.action.observation": "\uD83D\uDC41\uFE0F {{ entity }} watches {{ target }} closely. ({{ last }} => {{ new }})"
+        "game.history.action.observation": "\uD83D\uDC41\uFE0F {{ entity }} watches {{ target }} closely. ({{ last }} => {{ new }})",
+        "game.history.action.observation.energy": "⚡ {{ entity }} gains {{ energy }} energy points for its observation in Room {{ room }}."
     },
     "fr": {
         "game.history.room.join": "\uD83D\uDDFA\uFE0F {{ entity }} a rejoint la salle {{ room }}.",
@@ -49,10 +51,11 @@ const translations = {
         "game.history.action.move.failure": "\uD83D\uDDFA\uFE0F {{ entity }} n'a pas pu changer de salle.",
 
         "game.history.action.attack.already.eliminate": "⚔\uFE0F {{ entity }} a tenté d'attaquer {{ target }} alors qu'il était déjà éliminé.",
+        "game.history.action.attack.special.energy.empty": "⚔\uFE0F {{ entity }} a tenté d'attaquer {{ target }} avec son attaque spéciale, cependant sa jauge d'énergie n'est pas pleine.",
         "game.history.action.attack.left.room": "⚔\uFE0F {{ entity }} a tenté d'attaquer {{ target }}, mais celui-ci n'était plus dans la salle.",
 
-        "game.history.action.attack.take": "⚔\uFE0F {{ entity }} a subi {{ damage }} point(s) de dégâts de l'attaque de {{ target }}.",
-        "game.history.action.attack.take.crit": "⚔\uFE0F {{ entity }} a subi {{ damage }} point(s) de dégâts de l'attaque de {{ target }}. [CRITIQUE]",
+        "game.history.action.attack.take": "⚔\uFE0F {{ entity }} a subi {{ damage }} point(s) de dégâts de l'attaque de {{ target }}. (⚡ + {{ energy }} d'énergies)",
+        "game.history.action.attack.take.crit": "⚔\uFE0F {{ entity }} a subi {{ damage }} point(s) de dégâts de l'attaque de {{ target }}. (⚡ + {{ energy }} d'énergies) [CRITIQUE]",
 
         "game.history.action.attack.dealt": "⚔\uFE0F {{ entity }} a infligé {{ damage }} point(s) de dégâts à {{ target }}.",
         "game.history.action.attack.dealt.crit": "⚔\uFE0F {{ entity }} a infligé {{ damage }} point(s) de dégâts à {{ target }}. [CRITIQUE]",
@@ -60,10 +63,11 @@ const translations = {
         "game.history.action.kill": "\uD83D\uDC80 {{ entity }} a tué {{ target }}.",
         "game.history.action.killed.by": "\uD83D\uDC80 {{ entity }} a été tué par {{ target }}.",
 
-        "game.history.action.defense.self": "\uD83D\uDEE1\uFE0F {{ entity }} s'est défendu contre l'attaque de {{ target }}.",
+        "game.history.action.defense.self": "\uD83D\uDEE1\uFE0F {{ entity }} s'est défendu contre l'attaque de {{ target }}. (⚡ + {{ energy }} d'énergies)",
         "game.history.action.defense.failed": "\uD83D\uDEE1\uFE0F L'attaque de {{ entity }} sur {{ target }} a échoué.",
 
-        "game.history.action.observation": "\uD83D\uDC41\uFE0F {{ entity }} observe attentivement {{ target }}. ({{ last }} => {{ new }})"
+        "game.history.action.observation": "\uD83D\uDC41\uFE0F {{ entity }} observe attentivement {{ target }}. ({{ last }} => {{ new }})",
+        "game.history.action.observation.energy": "⚡ {{ entity }} récupère {{ energy }} d'énergies pour son observation dans la salle {{ room }}."
     }
 }
 
