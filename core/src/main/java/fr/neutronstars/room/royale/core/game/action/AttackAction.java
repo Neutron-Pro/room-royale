@@ -8,7 +8,7 @@ import fr.neutronstars.room.royale.core.game.entity.statistics.*;
 import fr.neutronstars.room.royale.core.game.room.Room;
 import fr.neutronstars.room.royale.core.game.settings.SettingOf;
 
-public record AttackAction(Entity entity, Entity target, long selectTime) implements Action {
+public record AttackAction(Entity entity, Entity target, boolean special, long selectTime) implements Action {
 
     @Override
     public void execute(Room room, long currentTime) {
@@ -18,6 +18,21 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
             room.game().histories().add(
                 this.entity,
                 new Entry("game.history.action.attack.already.eliminate")
+                    .add(new LiteralParameter("entity", this.entity.name()))
+                    .add(new LiteralParameter("target", this.target.name()))
+            );
+
+            return;
+        }
+
+        final EnergyStatistic energy = this.entity.statistics().of(EnergyStatistic.class);
+
+        if (this.special && !energy.fully()) {
+            this.entity.journal().add(new JournalEntry("attack.special.energy.empty", currentTime));
+
+            room.game().histories().add(
+                this.entity,
+                new Entry("game.history.action.attack.special.energy.empty")
                     .add(new LiteralParameter("entity", this.entity.name()))
                     .add(new LiteralParameter("target", this.target.name()))
             );
@@ -38,19 +53,59 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
             return;
         }
 
+        if (this.special) {
+            energy.clear();
+        }
+
         final boolean protectionAction = this.target.action()
             .map(action -> action instanceof DefenseAction)
             .orElse(false);
 
-        final int protectionCounter = this.target.statistics().of(DefenseCounterStatistic.class).of();
+        final int defenseCounter = this.target.statistics().of(DefenseCounterStatistic.class).of();
+        final int defenseLimiter = room.game().settings()
+            .<Integer>of(SettingOf.DEFENSE_LIMITER.identifier())
+            .of();
 
-        if (
-            protectionAction
-                && protectionCounter < room.game().settings()
-                    .<Integer>of(SettingOf.DEFENSE_LIMITER.identifier())
+        double damage = Math.max(
+            1,
+            this.entity.statistics().of(AttackStatistic.class).of()
+                - this.target.statistics().of(DefenseStatistic.class).of()
+        );
+
+        if (protectionAction && defenseCounter > defenseLimiter) {
+            damage /= 2;
+        }
+
+        if (!this.special) {
+            final int level = this.entity.observations().of(this.target).level();
+            double damagePercent = (20d + (Math.clamp(level, 0d, 4d) * 20d)) / 100d;
+            damage *= damagePercent;
+        }
+
+        int totalDamage = Math.max(1, (int) Math.ceil(damage));
+
+        if (this.special) {
+            totalDamage *= 2;
+        }
+
+        final boolean critic = room.game().randomizer()
+            .rate(
+                room.game().settings()
+                    .<Integer>of(SettingOf.ATTACK_CRIT_RATE.identifier())
                     .of()
-        ) {
-            this.target.journal().add(new JournalEntry("action.defense.self", currentTime));
+            );
+
+        if (critic) {
+            totalDamage *= 2;
+        }
+
+        if (protectionAction && defenseCounter < defenseLimiter) {
+            this.target.statistics().of(EnergyStatistic.class).add(totalDamage);
+
+            this.target.journal().add(
+                new JournalEntry("action.defense.self", currentTime)
+                    .add(new LiteralParameter("energy", String.valueOf(totalDamage)))
+            );
             this.entity.journal().add(new JournalEntry("action.defense.failed", currentTime));
 
             room.game().histories().add(
@@ -65,45 +120,21 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
                 new Entry("game.history.action.defense.self")
                 .add(new LiteralParameter("entity", this.target.name()))
                 .add(new LiteralParameter("target", this.entity.name()))
+                .add(new LiteralParameter("energy", String.valueOf(totalDamage)))
             );
 
             return;
         }
 
-        final boolean critic = room.game().randomizer()
-            .rate(
-                room.game().settings()
-                    .<Integer>of(SettingOf.ATTACK_CRIT_RATE.identifier())
-                    .of()
-            );
-
-        double damage = Math.max(
-            1,
-            this.entity.statistics().of(AttackStatistic.class).of()
-                - this.target.statistics().of(DefenseStatistic.class).of()
-        );
-
-        if (critic) {
-            damage *= 2;
-        }
-
-        if (protectionAction) {
-            damage /= 2;
-        }
-
-        final int level = this.entity.observations().of(this.target).level();
-
-        double damagePercent = (20d + (Math.clamp(level, 0d, 4d) * 20d)) / 100d;
-
-        damage *= damagePercent;
-
-        int totalDamage = Math.max(1, (int) Math.ceil(damage));
+        final int energyGain = protectionAction ? 0 : Math.max(1, totalDamage / 2);
+        this.target.statistics().of(EnergyStatistic.class).add(energyGain);
 
         this.target.statistics().of(HealStatistic.class).damage(room, totalDamage);
 
         this.target.journal().add(
             new JournalEntry("attack.take" + (critic ? ".crit" : ""), currentTime)
                 .add(new LiteralParameter("damage", String.valueOf(totalDamage)))
+                .add(new LiteralParameter("energy", String.valueOf(energyGain)))
         );
 
         this.entity.journal().add(
@@ -117,6 +148,7 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
                 .add(new LiteralParameter("entity", this.target.name()))
                 .add(new LiteralParameter("target", this.entity.name()))
                 .add(new LiteralParameter("damage", String.valueOf(totalDamage)))
+                .add(new LiteralParameter("energy", String.valueOf(energyGain)))
         );
 
         room.game().histories().add(

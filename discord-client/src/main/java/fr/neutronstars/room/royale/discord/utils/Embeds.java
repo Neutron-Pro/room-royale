@@ -129,6 +129,7 @@ public class Embeds {
                         );
                 }
                 if (self) {
+                    final EnergyStatistic energy = entity.statistics().of(EnergyStatistic.class);
                     slotBuilder.append("\n \n")
                         .append(
                             translation.translate(
@@ -139,6 +140,14 @@ public class Embeds {
                                             String.valueOf(entity.statistics().of(PotionStatistic.class).of())
                                         )
                                     )
+                            )
+                        )
+                        .append("\n")
+                        .append(
+                            translation.translate(
+                                new Entry("game.room.slot.statistic.energy")
+                                    .add(new LiteralParameter("value", String.valueOf(energy.of())))
+                                    .add(new LiteralParameter("max", String.valueOf(energy.max())))
                             )
                         );
                 } else {
@@ -163,7 +172,7 @@ public class Embeds {
                     translation.translate(new Entry("game.room.action.title")),
                     switch (action) {
                         case AttackAction attackAction -> translation.translate(
-                            new Entry("game.room.action.attack")
+                            new Entry("game.room.action.attack" + (attackAction.special() ? ".special" : ""))
                                 .add(
                                     new LiteralParameter(
                                         "target",

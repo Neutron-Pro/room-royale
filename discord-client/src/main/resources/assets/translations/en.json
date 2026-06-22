@@ -11,11 +11,13 @@
   "game.room.slot.statistic.defense": "\uD83D\uDEE1\uFE0F Defense: {{ value }}",
   "game.room.slot.statistic.kills": "\uD83D\uDC80 Kills: {{ value }}",
   "game.room.slot.statistic.potions": "\uD83C\uDF7E Potions: {{ value }}",
+  "game.room.slot.statistic.energy": "⚡ Énergy : {{ value }}/{{ max }}",
   "game.room.slot.observation": "\uD83D\uDC41\uFE0F Observation : {{ value }}",
 
   "game.room.action.title": "Action",
   "game.room.action.empty": "✅ You can choose an action.",
   "game.room.action.attack": "⚔\uFE0F Attack on {{ target }}",
+  "game.room.action.attack.special": "⚔\uFE0F Attack Special on {{ target }}",
   "game.room.action.defense": "\uD83D\uDEE1\uFE0F Defense",
   "game.room.action.move": "\uD83D\uDDFA\uFE0F Move to another room",
   "game.room.action.heal": "\uD83C\uDF7E Take a potion",
@@ -29,6 +31,7 @@
 
   "game.button.refresh": "\uD83D\uDD04 Refresh",
   "game.button.attack": "⚔\uFE0F Attack on {{ target }}",
+  "game.button.attack.special": "⚔\uFE0F Attack Special on {{ target }}",
   "game.button.defense": "\uD83D\uDEE1\uFE0F Defense",
   "game.button.move": "\uD83D\uDDFA\uFE0F Change Room",
   "game.button.heal": "\uD83C\uDF7E Take a potion",
@@ -75,11 +78,12 @@
   "potion.empty": "❌ You have not potion!",
 
   "attack.already.eliminate": "\uD83D\uDC80 target is already dead.",
+  "attack.special.energy.empty": "\uD83D\uDC80 You can't use your special attack! Your energy gauge isn't full.",
   "attack.left.room": "❌ Your target is no longer in the room.",
-  "action.defense.self": "\uD83D\uDEE1\uFE0F You defended yourself against an attack.",
+  "action.defense.self": "\uD83D\uDEE1\uFE0F You defended yourself against an attack. (⚡ + {{ energy }} energy points)",
   "action.defense.failed": "\uD83D\uDEE1\uFE0F Your target parried your attack.",
-  "attack.take": "⚔\uFE0F You took {{ damage }} damage.",
-  "attack.take.crit": "⚔\uFE0F You took {{ damage }} damage. [Critical]",
+  "attack.take": "⚔\uFE0F You took {{ damage }} damage. (⚡ + {{ energy }} energy points)",
+  "attack.take.crit": "⚔\uFE0F You took {{ damage }} damage. (⚡ + {{ energy }} energy points) [Critical]",
   "attack.dealt": "⚔\uFE0F You deal {{ damage }} damage to your target.",
   "attack.dealt.crit": "⚔\uFE0F You deal {{ damage }} damage to your target. [Critical]",
   "attack.kill": "\uD83D\uDC80 You killed {{ killed }}! (+{{ potions }} potions)",
@@ -110,10 +114,11 @@
   "game.history.action.move.failure": "\uD83D\uDDFA\uFE0F {{ entity }} was unable to change rooms.",
 
   "game.history.action.attack.already.eliminate": "⚔\uFE0F {{ entity }} tried to attack {{ target }} even though he had already been eliminated.",
+  "game.history.action.attack.special.energy.empty": "⚔\uFE0F {{ entity }} tried to attack {{ target }} with his special attack, however, his energy gauge isn't full.",
   "game.history.action.attack.left.room": "⚔\uFE0F {{ entity }} tried to attack {{ target }}, but he was no longer in the room.",
 
-  "game.history.action.attack.take": "⚔\uFE0F {{ entity }} took {{ damage }} damage from {{ target }}'s attack.",
-  "game.history.action.attack.take.crit": "⚔\uFE0F {{ entity }} took {{ damage }} damage from {{ target }}'s attack. [CRITIQUE]",
+  "game.history.action.attack.take": "⚔\uFE0F {{ entity }} took {{ damage }} damage from {{ target }}'s attack. (⚡ + {{ energy }} energy points)",
+  "game.history.action.attack.take.crit": "⚔\uFE0F {{ entity }} took {{ damage }} damage from {{ target }}'s attack. (⚡ + {{ energy }} energy points) [CRITIQUE]",
 
   "game.history.action.attack.dealt": "⚔\uFE0F {{ entity }} dealt {{ damage }} damage to Neutron.",
   "game.history.action.attack.dealt.crit": "⚔\uFE0F {{ entity }} dealt {{ damage }} damage to Neutron. [CRITIQUE]",
@@ -121,8 +126,9 @@
   "game.history.action.kill": "\uD83D\uDC80 {{ entity }} killed {{ target }}.",
   "game.history.action.killed.by": "\uD83D\uDC80 {{ entity }} was killed by {{ target }}.",
 
-  "game.history.action.defense.self": "\uD83D\uDEE1\uFE0F {{ entity }} defended himself against {{ target }}'s attack.",
+  "game.history.action.defense.self": "\uD83D\uDEE1\uFE0F {{ entity }} defended himself against {{ target }}'s attack. (⚡ + {{ energy }} energy points)",
   "game.history.action.defense.failed": "\uD83D\uDEE1\uFE0F {{ entity }}'s attack on {{ target }} failed.",
 
-  "game.history.action.observation": "\uD83D\uDC41\uFE0F {{ entity }} watches {{ target }} closely. ({{ last }} => {{ new }})"
+  "game.history.action.observation": "\uD83D\uDC41\uFE0F {{ entity }} watches {{ target }} closely. ({{ last }} => {{ new }})",
+  "game.history.action.observation.energy": "⚡ {{ entity }} gains {{ energy }} energy points for its observation in Room {{ room }}."
 }

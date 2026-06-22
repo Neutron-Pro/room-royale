@@ -58,6 +58,9 @@ public class Statistics {
             this.statisticMap.put(StreakStatistic.class, new StreakStatistic(game, this));
             this.statisticMap.put(DefenseCounterStatistic.class, new DefenseCounterStatistic(this.entity));
             this.statisticMap.put(KillStatistic.class, new KillStatistic());
+            this.statisticMap.put(
+                EnergyStatistic.class,
+                new EnergyStatistic(game.settings().<Integer>of(SettingOf.ENERGY_MAX.identifier()).of()));
         }
     }
 
