@@ -1,56 +1,39 @@
-# Workflow pour déployer le contenu statique sur GitHub Pages (Prod et Develop)
 name: Deploy History Viewer
 
 on:
   push:
-    # Déclenchement sur les deux branches
     branches: ["production", "develop"]
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write # Requis pour que l'action puisse écrire sur la branche github-pages
 
-# Attention : on dynamise le groupe de concurrence par branche.
-# Cela évite qu'un déploiement de 'develop' n'annule ou bloque un déploiement de 'production'.
 concurrency:
-  group: "pages-${{ github.ref_name }}"
+  # On ne veut pas que la prod et le dev déploient EXACTEMENT en même temps
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Étape intermédiaire : Organiser les dossiers pour le multi-environnement
-      - name: Organize build folders
-        run: |
-          if [ "${{ github.ref_name }}" = "develop" ]; then
-            echo "Préparation de l'environnement de test (Develop)..."
-            mkdir -p dist/develop
-            cp -r ./history-viewer/* dist/develop/
-          else
-            echo "Préparation de l'environnement de production..."
-            mkdir -p dist
-            cp -r ./history-viewer/* dist/
-          fi
-
-      # Configuration de GitHub Pages
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      # Upload du dossier 'dist' fraîchement configuré
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      # Déploiement si on est sur la branche PRODUCTION
+      - name: Deploy Production
+        if: github.ref_name == 'production'
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: './dist'
+          folder: ./history-viewer # Le dossier contenant votre build
+          branch: github-pages        # La branche cible pour GitHub Pages
+          target-folder: .        # Déployé à la racine !
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+      # Déploiement si on est sur la branche DEVELOP
+      - name: Deploy Develop
+        if: github.ref_name == 'develop'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./history-viewer # Le dossier contenant votre build
+          branch: github-pages        # Même branche cible
+          target-folder: develop  # Déployé dans le sous-dossier /develop !
