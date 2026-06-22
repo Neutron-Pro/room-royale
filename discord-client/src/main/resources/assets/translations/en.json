@@ -92,7 +92,7 @@
   "move.success": "\uD83D\uDDFA\uFE0F You've moved to another room.",
   "move.failed": "❌ Unable to join a new room.",
 
-  "observation.success": "\uD83D\uDC41\uFE0F You scan the room carefully with your eyes.",
+  "observation.success": "\uD83D\uDC41\uFE0F You scan the room carefully with your eyes. (⚡ + {{ energy }} energy points)",
 
   "download.not.ready": "❌ The Room Royale battle report with the ID `{{ identifier }}` is not available yet. Please wait!",
   "download.not.valid": "❌ No Room Royale battle report found with the ID `{{ identifier }}`!",

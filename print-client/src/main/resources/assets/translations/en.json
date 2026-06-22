@@ -9,10 +9,10 @@
   "attack.already.eliminate": "Your target is already dead.",
   "attack.special.energy.empty": "You can't use your special attack! Your energy gauge isn't full.",
   "attack.left.room": "Your target is no longer in the room.",
-  "action.defense.self": "You defended yourself against an attack. (+ {{ energy }} energies)",
+  "action.defense.self": "You defended yourself against an attack. (+ {{ energy }} energy points)",
   "action.defense.failed": "Your target parried your attack.",
-  "attack.take": "You took {{ damage }} damage. (+ {{ energy }} energies)",
-  "attack.take.crit": "You took {{ damage }} damage. (+ {{ energy }} energies) [Critical]",
+  "attack.take": "You took {{ damage }} damage. (+ {{ energy }} energy points)",
+  "attack.take.crit": "You took {{ damage }} damage. (+ {{ energy }} energy points) [Critical]",
   "attack.dealt": "You deal {{ damage }} damage to your target.",
   "attack.dealt.crit": "You deal {{ damage }} damage to your target. [Critical]",
   "attack.kill": "You killed {{ killed }}! (+{{ potions }} potions)",
@@ -21,7 +21,7 @@
   "move.success": "You've moved to another room.",
   "move.failed": "Unable to join a new room.",
 
-  "observation.success": "You scan the room carefully with your eyes.",
+  "observation.success": "You scan the room carefully with your eyes. (+ {{ energy }} energy points)",
 
   "game.history.room.join": "{{ entity }} join the room {{ room }}.",
   "game.history.room.quit": "{{ entity }} left the room {{ room }}.",
@@ -41,8 +41,8 @@
   "game.history.action.attack.special.energy.empty": "{{ entity }} tried to attack {{ target }} with his special attack, however, his energy gauge isn't full.",
   "game.history.action.attack.left.room": "{{ entity }} tried to attack {{ target }}, but he was no longer in the room.",
 
-  "game.history.action.attack.take": "{{ entity }} took {{ damage }} damage from {{ target }}'s attack. (+ {{ energy }} energies)",
-  "game.history.action.attack.take.crit": "{{ entity }} took {{ damage }} damage from {{ target }}'s attack. (+ {{ energy }} energies) [CRITIQUE]",
+  "game.history.action.attack.take": "{{ entity }} took {{ damage }} damage from {{ target }}'s attack. (+ {{ energy }} energy points)",
+  "game.history.action.attack.take.crit": "{{ entity }} took {{ damage }} damage from {{ target }}'s attack. (+ {{ energy }} energy points) [CRITIQUE]",
 
   "game.history.action.attack.dealt": "{{ entity }} dealt {{ damage }} damage to Neutron.",
   "game.history.action.attack.dealt.crit": "{{ entity }} dealt {{ damage }} damage to Neutron. [CRITIQUE]",
@@ -50,7 +50,7 @@
   "game.history.action.kill": "{{ entity }} killed {{ target }}.",
   "game.history.action.killed.by": "{{ entity }} was killed by {{ target }}.",
 
-  "game.history.action.defense.self": "{{ entity }} defended himself against {{ target }}'s attack. (+ {{ energy }} energies)",
+  "game.history.action.defense.self": "{{ entity }} defended himself against {{ target }}'s attack. (+ {{ energy }} energy points)",
   "game.history.action.defense.failed": "{{ entity }}'s attack on {{ target }} failed.",
 
   "game.history.action.observation": "{{ entity }} watches {{ target }} closely. ({{ last }} => {{ new }})",

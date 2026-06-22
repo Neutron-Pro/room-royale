@@ -92,7 +92,7 @@
   "move.success": "\uD83D\uDDFA\uFE0F Vous avez changé de salle.",
   "move.failed": "❌ Impossible de rejoindre une nouvelle salle.",
 
-  "observation.success": "\uD83D\uDC41\uFE0F Vous balayez la pièce du regard avec attention.",
+  "observation.success": "\uD83D\uDC41\uFE0F Vous balayez la pièce du regard avec attention. (⚡ {{ energy }} d'énergies)",
 
   "download.not.ready": "❌ Le rapport de combat Room Royale avec l'identifiant `{{ identifier }}` n'est pas encore disponible. Veuillez patienter !",
   "download.not.valid": "❌ Aucun rapport de combat Room Royal avec l'identifiant `{{ identifier }}` n'a été trouvé !",
