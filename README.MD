@@ -12,7 +12,7 @@ Up to 100 players fight across multiple 4-player rooms where observation, antici
 * AI players with multiple difficulty levels
 * Fast turn-based gameplay
 * Discord reaction-based controls
-* Progressive observation system `in coming...`
+* Progressive observation system
 * Temporary kill-based buffs
 * Dynamic room events `in coming...`
 * Strategic room movement
@@ -37,7 +37,7 @@ Each turn, players have up to 60 seconds to choose one action:
 * 🛡️ Defend
 * 🧪 Use Potion
 * 🚪 Change Room
-* 👁️ Observe `in coming...`
+* 👁️ Observe
 
 If all players choose early, the turn resolves immediately.
 
@@ -45,23 +45,23 @@ The game continues until only one player remains alive.
 
 ---
 
-# Observation System `in coming...`
+# Observation System
 
 All player stats are hidden by default.
 
 Using the Observe action progressively reveals information about every player in the room:
 
-1. Defense
-2. Attack
-3. HP
-4. Kill count
+1. Attack
+2. Defense
+3. Kill count
+4. HP
 
 Observation is permanent during the game.
 
 Attacks become stronger as observation level increases:
 
 ```math
-Effective Attack = Attack / (5 - Observation Level)
+Effective damage = (Attack - Defense) * ((20 + (clamp(observation, 0, 4) * 20)) / 100)
 ```
 
 ---
