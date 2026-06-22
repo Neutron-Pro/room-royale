@@ -24,16 +24,18 @@ Up to 100 players fight across multiple 4-player rooms where observation, antici
 
 Each player starts with:
 
-* 100 HP
-* 25 Attack
+* 100/100 HP
+* 20 Attack
 * 0 Defense
-* 3 Potions
+* 1 Potions
+* 0/100 Energy points
 
 Players are divided into rooms of 4 players.
 
 Each turn, players have up to 60 seconds to choose one action:
 
 * ⚔️ Attack
+* ⚔️ Attack Special
 * 🛡️ Defend
 * 🧪 Use Potion
 * 🚪 Change Room
@@ -60,8 +62,19 @@ Observation is permanent during the game.
 
 Attacks become stronger as observation level increases:
 
+Without attack special :
 ```math
 Effective damage = (Attack - Defense) * ((20 + (clamp(observation, 0, 4) * 20)) / 100)
+```
+
+With attack special :
+```math
+Effective damage = (Attack - Defense) * 2
+```
+
+With critique : 
+```math
+Effective damage * 2
 ```
 
 ---
@@ -74,20 +87,31 @@ Effective damage = (Attack - Defense) * ((20 + (clamp(observation, 0, 4) * 20)) 
 * Max Attack: 35
 * 5% Critical Hit chance
 * Critical hits deal double damage
+* 50% of damage dealt is converted to energy.
+
+## Attack Special
+
+* Identical of Attack but x2
+* Require full energy for use it
 
 ## Defense
 
 * Blocks 100% damage
+  * 100% of damage dealt is converted to energy.
 * After 3 consecutive defenses:
-
-    * only blocks 50%
-* 5% chance to counterattack for 10 damage
+    * only blocks 50% of damages
+    * 0 energy points earned.
 
 ## Potions
 
 * Fully restore HP
 * Players gain +1 potion per kill
 * Grants temporary defense bonus
+
+## Observation
+
+* +1 observation level for each entity of the room
+* +10 energy points.
 
 ---
 
@@ -103,7 +127,7 @@ Bonuses last 5 turns.
 
 Each additional kill before expiration:
 
-* adds +2 turns
+* adds +4 turns
 * stacks bonuses
 
 Stats reset if the timer reaches 0.

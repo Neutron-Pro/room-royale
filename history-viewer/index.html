@@ -53,10 +53,11 @@
                 <div class="rules-card">
                   <h4>📊 Stats de base</h4>
                   <ul>
-                    <li><strong>HP :</strong> 100</li>
+                    <li><strong>HP :</strong> 100 (Max: 100)</li>
                     <li><strong>ATK :</strong> 25 (Max: 35)</li>
                     <li><strong>DEF :</strong> 0 (Max: 15)</li>
                     <li><strong>Potions :</strong> 1</li>
+                    <li><strong>Énergy :</strong> 0 (Max: 100)</li>
                   </ul>
                 </div>
               </div>
@@ -65,11 +66,12 @@
               <p>Chaque tour, choisissez une action. Si toute la salle répond avant les 60s, le tour se résout immédiatement.</p>
 
               <div class="actions-list">
-                <div class="action-rule-item"><strong>⚔️ Attaquer :</strong> Ciblez un joueur (1 à 4). <br><small>Dégâts = ATK - DEF de la cible. (5% Critique = Dégâts × 2).</small></div>
-                <div class="action-rule-item"><strong>🛡️ Se défendre :</strong> Annule 100% des dégâts. <br><small>Après 3 défenses consécutives, l'efficacité chute à 50%.</small></div>
+                <div class="action-rule-item"><strong>⚔️ Attaquer :</strong> Ciblez un joueur (1 à 4). <br><small>Dégâts = (ATK - DEF) de la cible. (5% Critique = Dégâts × 2).</small><br><small>+50% des dégâts subis convertis en points d'énergie.</small></div>
+                <div class="action-rule-item"><strong>⚔️ Attaque Spéciale :</strong> Ciblez un joueur (1 à 4). <br><small>Dégâts = ((ATK - DEF) × 2) de la cible. (5% Critique = Dégâts × 2).</small> <br><small>Nécessite d'avoir ses points d'énergie au maximum.</small><br><small>+50% des dégâts subis convertis en points d'énergie.</small></div>
+                <div class="action-rule-item"><strong>🛡️ Se défendre :</strong> Annule 100% des dégâts. <br><small>+100% des dégâts subis convertis en points d'énergie.</small><br><small>Après 3 défenses consécutives, l'efficacité chute à 50% de dégâts et aucune conversion en point d'énergie.</small></div>
                 <div class="action-rule-item"><strong>🧪 Potion :</strong> Rend 100% HP. Stock des autres caché. (3 au début + 1 par kill).</div>
                 <div class="action-rule-item"><strong>🚪 Changer de salle :</strong> Rejoint une salle de 1 à 3 joueurs.</div>
-                <div class="action-rule-item"><strong>👁️ Observation de la salle :</strong> Ajoute +1 au compteur d'observation de chaque joueur présent dans la salle.</div>
+                <div class="action-rule-item"><strong>👁️ Observation de la salle :</strong> Ajoute +1 au compteur d'observation de chaque joueur présent dans la salle. <br><small>+10 points d'énergie</small></div>
               </div>
 
               <blockquote class="warning-block">💀 <strong>Inactivité :</strong> 10% de vos HP restants en dégâts si vous ne jouez pas.</blockquote>
