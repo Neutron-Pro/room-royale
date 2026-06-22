@@ -1,10 +1,7 @@
 package fr.neutronstars.room.royale.core.request.handler;
 
 import fr.neutronstars.room.royale.core.RoomRoyale;
-import fr.neutronstars.room.royale.core.game.action.AttackAction;
-import fr.neutronstars.room.royale.core.game.action.DefenseAction;
-import fr.neutronstars.room.royale.core.game.action.HealAction;
-import fr.neutronstars.room.royale.core.game.action.MoveAction;
+import fr.neutronstars.room.royale.core.game.action.*;
 import fr.neutronstars.room.royale.core.game.entity.Entity;
 import fr.neutronstars.room.royale.core.game.entity.Player;
 import fr.neutronstars.room.royale.core.game.room.Room;
@@ -43,6 +40,7 @@ public class ActionUserRequestHandler implements RequestHandler<ActionUserReques
                     case "defense" -> new DefenseAction(user.get().player(), System.currentTimeMillis());
                     case "heal" -> new HealAction(user.get().player(), System.currentTimeMillis());
                     case "move" -> new MoveAction(user.get().player(), System.currentTimeMillis());
+                    case "observation" -> new ObservationAction(user.get().player(), System.currentTimeMillis());
                     default -> null;
                 }
             );

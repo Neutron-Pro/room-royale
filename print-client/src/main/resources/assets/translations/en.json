@@ -20,6 +20,8 @@
   "move.success": "You've moved to another room.",
   "move.failed": "Unable to join a new room.",
 
+  "observation.success": "You scan the room carefully with your eyes.",
+
   "game.history.room.join": "{{ entity }} join the room {{ room }}.",
   "game.history.room.quit": "{{ entity }} left the room {{ room }}.",
 
@@ -47,5 +49,7 @@
   "game.history.action.killed.by": "{{ entity }} was killed by {{ target }}.",
 
   "game.history.action.defense.self": "{{ entity }} defended himself against {{ target }}'s attack.",
-  "game.history.action.defense.failed": "{{ entity }}'s attack on {{ target }} failed."
+  "game.history.action.defense.failed": "{{ entity }}'s attack on {{ target }} failed.",
+
+  "game.history.action.observation": "{{ entity }} watches {{ target }} closely. ({{ last }} => {{ new }})"
 }

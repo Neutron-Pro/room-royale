@@ -79,13 +79,14 @@ public class Embeds {
                     continue;
                 }
                 final boolean self = entity.equals(player);
+                final int level = self ? 1000 : player.observations().of(entity).level();
                 final HealStatistic heal = entity.statistics().of(HealStatistic.class);
                 final StringBuilder slotBuilder =  new StringBuilder()
                     .append(
                         translation.translate(
                             new Entry("game.room.slot.statistic.heal")
-                                .add(new LiteralParameter("value", String.valueOf(heal.of())))
-                                .add(new LiteralParameter("max", String.valueOf(heal.origin())))
+                                .add(new LiteralParameter("value", level > 3 ? String.valueOf(heal.of()) : "???"))
+                                .add(new LiteralParameter("max", level > 3 ? String.valueOf(heal.origin()) : "???"))
                         )
                     )
                     .append("\n")
@@ -95,7 +96,9 @@ public class Embeds {
                                 .add(
                                     new LiteralParameter(
                                         "value",
-                                        String.valueOf(entity.statistics().of(AttackStatistic.class).of())
+                                        level > 0
+                                            ? String.valueOf(entity.statistics().of(AttackStatistic.class).of())
+                                            : "???"
                                     )
                                 )
                         )
@@ -107,7 +110,9 @@ public class Embeds {
                                 .add(
                                     new LiteralParameter(
                                         "value",
-                                        String.valueOf(entity.statistics().of(DefenseStatistic.class).of())
+                                        level > 1
+                                            ? String.valueOf(entity.statistics().of(DefenseStatistic.class).of())
+                                            : "???"
                                     )
                                 )
                         )
@@ -119,7 +124,7 @@ public class Embeds {
                         .append(
                             translation.translate(
                                 new Entry("game.room.slot.statistic.kills")
-                                    .add(new LiteralParameter("value", String.valueOf(kills.of())))
+                                    .add(new LiteralParameter("value", level > 2 ? String.valueOf(kills.of()) : "???"))
                             )
                         );
                 }
@@ -134,6 +139,14 @@ public class Embeds {
                                             String.valueOf(entity.statistics().of(PotionStatistic.class).of())
                                         )
                                     )
+                            )
+                        );
+                } else {
+                    slotBuilder.append("\n \n")
+                        .append(
+                            translation.translate(
+                                new Entry("game.room.slot.observation")
+                                    .add(new LiteralParameter("value", String.valueOf(level)))
                             )
                         );
                 }
@@ -161,6 +174,7 @@ public class Embeds {
                         case DefenseAction _ -> translation.translate(new Entry("game.room.action.defense"));
                         case MoveAction _ -> translation.translate(new Entry("game.room.action.move"));
                         case HealAction _ -> translation.translate(new Entry("game.room.action.heal"));
+                        case ObservationAction _ -> translation.translate(new Entry("game.room.action.observation"));
                         default -> translation.translate(new Entry("game.room.action.unknown"));
                     },
                     false

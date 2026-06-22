@@ -3,6 +3,7 @@ package fr.neutronstars.room.royale.core.game.entity;
 import fr.neutronstars.room.royale.core.game.Game;
 import fr.neutronstars.room.royale.core.game.action.Action;
 import fr.neutronstars.room.royale.core.game.entity.journal.Journal;
+import fr.neutronstars.room.royale.core.game.entity.observation.Observations;
 import fr.neutronstars.room.royale.core.game.entity.statistics.HealStatistic;
 import fr.neutronstars.room.royale.core.game.entity.statistics.Statistics;
 import fr.neutronstars.room.royale.core.game.room.Room;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 public class Entity {
     protected final Statistics statistics = new Statistics(this);
+    protected final Observations observations = new Observations();
     protected final Journal journal = new Journal();
     protected final Profile profile;
 
@@ -42,6 +44,10 @@ public class Entity {
 
     public Statistics statistics() {
         return this.statistics;
+    }
+
+    public Observations observations() {
+        return this.observations;
     }
 
     public Game game() {

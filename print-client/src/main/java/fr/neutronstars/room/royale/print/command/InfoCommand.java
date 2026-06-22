@@ -3,7 +3,10 @@ package fr.neutronstars.room.royale.print.command;
 import fr.neutronstars.room.royale.core.game.entity.Entity;
 import fr.neutronstars.room.royale.core.game.entity.Position;
 import fr.neutronstars.room.royale.core.game.entity.journal.JournalEntry;
+import fr.neutronstars.room.royale.core.game.entity.statistics.AttackStatistic;
+import fr.neutronstars.room.royale.core.game.entity.statistics.DefenseStatistic;
 import fr.neutronstars.room.royale.core.game.entity.statistics.HealStatistic;
+import fr.neutronstars.room.royale.core.game.entity.statistics.KillStatistic;
 import fr.neutronstars.room.royale.core.game.room.Room;
 import fr.neutronstars.room.royale.core.user.User;
 import fr.neutronstars.room.royale.print.PrintClient;
@@ -78,14 +81,15 @@ public class InfoCommand extends AbstractGameCommand {
                 continue;
             }
             final boolean self = entity.equals(user.player());
+            final int level = self ? 1000 : user.player().observations().of(entity).level();
             this.printClient.logger().info(
                 "  > {} (Life: {}, Atk: {}, Def: {}{}, Kills: {})",
                 self ? entity.name() : x,
-                entity.statistics().of(HealStatistic.class).of(),
-                25,
-                0,
+                level > 3 ? entity.statistics().of(HealStatistic.class).of() : "???",
+                level > 0 ? entity.statistics().of(AttackStatistic.class).of() : "???",
+                level > 1 ? entity.statistics().of(DefenseStatistic.class).of() : "???",
                 self ? ", Potion: 0" : "",
-                0
+                level > 2 ? entity.statistics().of(KillStatistic.class).of() : "???"
             );
         }
         this.printClient.logger().info(" ");

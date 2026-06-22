@@ -29,7 +29,9 @@ const translations = {
         "game.history.action.killed.by": "\uD83D\uDC80 {{ entity }} was killed by {{ target }}.",
 
         "game.history.action.defense.self": "\uD83D\uDEE1\uFE0F {{ entity }} defended himself against {{ target }}'s attack.",
-        "game.history.action.defense.failed": "\uD83D\uDEE1\uFE0F {{ entity }}'s attack on {{ target }} failed."
+        "game.history.action.defense.failed": "\uD83D\uDEE1\uFE0F {{ entity }}'s attack on {{ target }} failed.",
+
+        "game.history.action.observation": "\uD83D\uDC41\uFE0F {{ entity }} watches {{ target }} closely. ({{ last }} => {{ new }})"
     },
     "fr": {
         "game.history.room.join": "\uD83D\uDDFA\uFE0F {{ entity }} a rejoint la salle {{ room }}.",
@@ -59,7 +61,9 @@ const translations = {
         "game.history.action.killed.by": "\uD83D\uDC80 {{ entity }} a été tué par {{ target }}.",
 
         "game.history.action.defense.self": "\uD83D\uDEE1\uFE0F {{ entity }} s'est défendu contre l'attaque de {{ target }}.",
-        "game.history.action.defense.failed": "\uD83D\uDEE1\uFE0F L'attaque de {{ entity }} sur {{ target }} a échoué."
+        "game.history.action.defense.failed": "\uD83D\uDEE1\uFE0F L'attaque de {{ entity }} sur {{ target }} a échoué.",
+
+        "game.history.action.observation": "\uD83D\uDC41\uFE0F {{ entity }} observe attentivement {{ target }}. ({{ last }} => {{ new }})"
     }
 }
 

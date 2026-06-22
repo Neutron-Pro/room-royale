@@ -77,7 +77,7 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
                     .of()
             );
 
-        int damage = Math.max(
+        double damage = Math.max(
             1,
             this.entity.statistics().of(AttackStatistic.class).of()
                 - this.target.statistics().of(DefenseStatistic.class).of()
@@ -91,20 +91,24 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
             damage /= 2;
         }
 
-        if (damage < 1) {
-            damage = 1;
-        }
+        final int level = this.entity.observations().of(this.target).level();
 
-        this.target.statistics().of(HealStatistic.class).damage(room, damage);
+        double damagePercent = (20d + (Math.clamp(level, 0d, 4d) * 20d)) / 100d;
+
+        damage *= damagePercent;
+
+        int totalDamage = Math.max(1, (int) Math.ceil(damage));
+
+        this.target.statistics().of(HealStatistic.class).damage(room, totalDamage);
 
         this.target.journal().add(
             new JournalEntry("attack.take" + (critic ? ".crit" : ""), currentTime)
-                .add(new LiteralParameter("damage", String.valueOf(damage)))
+                .add(new LiteralParameter("damage", String.valueOf(totalDamage)))
         );
 
         this.entity.journal().add(
             new JournalEntry("attack.dealt" + (critic ? ".crit" : ""), currentTime)
-                .add(new LiteralParameter("damage", String.valueOf(damage)))
+                .add(new LiteralParameter("damage", String.valueOf(totalDamage)))
         );
 
         room.game().histories().add(
@@ -112,7 +116,7 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
             new Entry("game.history.action.attack.take" + (critic ? ".crit" : ""))
                 .add(new LiteralParameter("entity", this.target.name()))
                 .add(new LiteralParameter("target", this.entity.name()))
-                .add(new LiteralParameter("damage", String.valueOf(damage)))
+                .add(new LiteralParameter("damage", String.valueOf(totalDamage)))
         );
 
         room.game().histories().add(
@@ -120,7 +124,7 @@ public record AttackAction(Entity entity, Entity target, long selectTime) implem
             new Entry("game.history.action.attack.dealt" + (critic ? ".crit" : ""))
                 .add(new LiteralParameter("entity", this.entity.name()))
                 .add(new LiteralParameter("target", this.target.name()))
-                .add(new LiteralParameter("damage", String.valueOf(damage)))
+                .add(new LiteralParameter("damage", String.valueOf(totalDamage)))
         );
 
         if (this.target.eliminate()) {

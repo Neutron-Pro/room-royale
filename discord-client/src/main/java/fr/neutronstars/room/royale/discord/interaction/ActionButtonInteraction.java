@@ -62,6 +62,7 @@ public class ActionButtonInteraction implements ButtonInteraction {
             case "defense" -> new ActionUserRequest(user.id(), "defense");
             case "move" -> new ActionUserRequest(user.id(), "move");
             case "heal" -> new ActionUserRequest(user.id(), "heal");
+            case "observation" -> new ActionUserRequest(user.id(), "observation");
             default -> null;
         };
 

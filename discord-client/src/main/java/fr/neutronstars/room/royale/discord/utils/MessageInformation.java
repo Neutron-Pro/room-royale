@@ -90,6 +90,10 @@ public class MessageInformation {
                     Button.primary(
                         "action:heal",
                         translation.translate(new Entry("game.button.heal"))
+                    ),
+                    Button.primary(
+                        "action:observation",
+                        translation.translate(new Entry("game.button.observation"))
                     )
                 )
             );
