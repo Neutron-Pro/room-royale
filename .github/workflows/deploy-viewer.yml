@@ -1,28 +1,24 @@
-# Simple workflow for deploying static content to GitHub Pages
+# Workflow pour déployer le contenu statique sur GitHub Pages (Prod et Develop)
 name: Deploy History Viewer
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["develop"]
-
-  # Allows you to run this workflow manually from the Actions tab
+    # Déclenchement sur les deux branches
+    branches: ["production", "develop"]
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Attention : on dynamise le groupe de concurrence par branche.
+# Cela évite qu'un déploiement de 'develop' n'annule ou bloque un déploiement de 'production'.
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref_name }}"
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -31,13 +27,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Étape intermédiaire : Organiser les dossiers pour le multi-environnement
+      - name: Organize build folders
+        run: |
+          if [ "${{ github.ref_name }}" = "develop" ]; then
+            echo "Préparation de l'environnement de test (Develop)..."
+            mkdir -p dist/develop
+            cp -r ./history-viewer/* dist/develop/
+          else
+            echo "Préparation de l'environnement de production..."
+            mkdir -p dist
+            cp -r ./history-viewer/* dist/
+          fi
+
+      # Configuration de GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      # Upload du dossier 'dist' fraîchement configuré
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: './history-viewer'
+          path: './dist'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
