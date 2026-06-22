@@ -11,13 +11,17 @@
   "game.room.slot.statistic.defense": "\uD83D\uDEE1\uFE0F Défense : {{ value }}",
   "game.room.slot.statistic.kills": "\uD83D\uDC80 Éliminations : {{ value }}",
   "game.room.slot.statistic.potions": "\uD83C\uDF7E Potions : {{ value }}",
+  "game.room.slot.statistic.energy": "⚡ Énergie : {{ value }}/{{ max }}",
+  "game.room.slot.observation": "\uD83D\uDC41\uFE0F Observation : {{ value }}",
 
   "game.room.action.title": "Action",
   "game.room.action.empty": "✅ Vous pouvez choisir une action.",
   "game.room.action.attack": "⚔\uFE0F Attaquer {{ target }}",
+  "game.room.action.attack.special": "⚔\uFE0F Attaque Spéciale sur {{ target }}",
   "game.room.action.defense": "\uD83D\uDEE1\uFE0F Se défendre",
   "game.room.action.move": "\uD83D\uDDFA\uFE0F Changer de salle",
   "game.room.action.heal": "\uD83C\uDF7E Prendre une potion",
+  "game.room.action.observation": "\uD83D\uDC41\uFE0F Observer la salle",
 
   "game.room.action.remaining.time.title": "Temps restant",
   "game.room.action.remaining.time.value": "⏲\uFE0F {{ time }}",
@@ -27,9 +31,11 @@
 
   "game.button.refresh": "\uD83D\uDD04 Actualiser",
   "game.button.attack": "⚔\uFE0F Attaquer {{ target }}",
+  "game.button.attack.special": "⚔\uFE0F Attaque Spéciale sur {{ target }}",
   "game.button.defense": "\uD83D\uDEE1\uFE0F Se défendre",
   "game.button.move": "\uD83D\uDDFA\uFE0F Changer de salle",
   "game.button.heal": "\uD83C\uDF7E Prendre une potion",
+  "game.button.observation": "\uD83D\uDC41\uFE0F Observation de la salle",
   "game.button.download": "\uD83D\uDCDC Télécharger le rapport",
 
   "game.winner.title": "Victoire",
@@ -72,11 +78,12 @@
   "potion.empty": "❌ Vous n'avez pas de potion !",
 
   "attack.already.eliminate": "\uD83D\uDC80 La cible est déjà morte.",
+  "attack.special.energy.empty": "\uD83D\uDC80 Vous ne pouvez pas utiliser votre attaque spéciale ! Votre jauge d'énergie n'est pas pleine.",
   "attack.left.room": "❌ Votre cible n'est plus dans la salle.",
-  "action.defense.self": "\uD83D\uDEE1\uFE0F Vous vous êtes défendu contre une attaque.",
+  "action.defense.self": "\uD83D\uDEE1\uFE0F Vous vous êtes défendu contre une attaque. (⚡ + {{ energy }} d'énergies)",
   "action.defense.failed": "\uD83D\uDEE1\uFE0F Votre cible a paré votre attaque.",
-  "attack.take": "⚔\uFE0F Vous avez subi {{ damage }} point(s) de dégâts.",
-  "attack.take.crit": "⚔\uFE0F Vous avez subi {{ damage }} point(s) de dégâts. [Critique]",
+  "attack.take": "⚔\uFE0F Vous avez subi {{ damage }} point(s) de dégâts. (⚡ + {{ energy }} d'énergies)",
+  "attack.take.crit": "⚔\uFE0F Vous avez subi {{ damage }} point(s) de dégâts. (⚡ + {{ energy }} d'énergies) [Critique]",
   "attack.dealt": "⚔\uFE0F Vous infligez {{ damage }} point(s) de dégâts à votre cible.",
   "attack.dealt.crit": "⚔\uFE0F Vous infligez {{ damage }} point(s) de dégâts à votre cible. [Critique]",
   "attack.kill": "\uD83D\uDC80 Vous avez tué {{ killed }} ! (+{{ potions }} potions)",
@@ -84,6 +91,8 @@
 
   "move.success": "\uD83D\uDDFA\uFE0F Vous avez changé de salle.",
   "move.failed": "❌ Impossible de rejoindre une nouvelle salle.",
+
+  "observation.success": "\uD83D\uDC41\uFE0F Vous balayez la pièce du regard avec attention. (⚡ {{ energy }} d'énergies)",
 
   "download.not.ready": "❌ Le rapport de combat Room Royale avec l'identifiant `{{ identifier }}` n'est pas encore disponible. Veuillez patienter !",
   "download.not.valid": "❌ Aucun rapport de combat Room Royal avec l'identifiant `{{ identifier }}` n'a été trouvé !",
@@ -105,10 +114,11 @@
   "game.history.action.move.failure": "\uD83D\uDDFA\uFE0F {{ entity }} n'a pas pu changer de salle.",
 
   "game.history.action.attack.already.eliminate": "⚔\uFE0F {{ entity }} a tenté d'attaquer {{ target }} alors qu'il était déjà éliminé.",
+  "game.history.action.attack.special.energy.empty": "⚔\uFE0F {{ entity }} a tenté d'attaquer {{ target }} avec son attaque spéciale, cependant sa jauge d'énergie n'est pas pleine.",
   "game.history.action.attack.left.room": "⚔\uFE0F {{ entity }} a tenté d'attaquer {{ target }}, mais celui-ci n'était plus dans la salle.",
 
-  "game.history.action.attack.take": "⚔\uFE0F {{ entity }} a subi {{ damage }} point(s) de dégâts de l'attaque de {{ target }}.",
-  "game.history.action.attack.take.crit": "⚔\uFE0F {{ entity }} a subi {{ damage }} point(s) de dégâts de l'attaque de {{ target }}. [CRITIQUE]",
+  "game.history.action.attack.take": "⚔\uFE0F {{ entity }} a subi {{ damage }} point(s) de dégâts de l'attaque de {{ target }}. (⚡ + {{ energy }} d'énergies)",
+  "game.history.action.attack.take.crit": "⚔\uFE0F {{ entity }} a subi {{ damage }} point(s) de dégâts de l'attaque de {{ target }}. (⚡ + {{ energy }} d'énergies) [CRITIQUE]",
 
   "game.history.action.attack.dealt": "⚔\uFE0F {{ entity }} a infligé {{ damage }} point(s) de dégâts à {{ target }}.",
   "game.history.action.attack.dealt.crit": "⚔\uFE0F {{ entity }} a infligé {{ damage }} point(s) de dégâts à {{ target }}. [CRITIQUE]",
@@ -116,6 +126,9 @@
   "game.history.action.kill": "\uD83D\uDC80 {{ entity }} a tué {{ target }}.",
   "game.history.action.killed.by": "\uD83D\uDC80 {{ entity }} a été tué par {{ target }}.",
 
-  "game.history.action.defense.self": "\uD83D\uDEE1\uFE0F {{ entity }} s'est défendu contre l'attaque de {{ target }}.",
-  "game.history.action.defense.failed": "\uD83D\uDEE1\uFE0F L'attaque de {{ entity }} sur {{ target }} a échoué."
+  "game.history.action.defense.self": "\uD83D\uDEE1\uFE0F {{ entity }} s'est défendu contre l'attaque de {{ target }}. (⚡ + {{ energy }} d'énergies)",
+  "game.history.action.defense.failed": "\uD83D\uDEE1\uFE0F L'attaque de {{ entity }} sur {{ target }} a échoué.",
+
+  "game.history.action.observation": "\uD83D\uDC41\uFE0F {{ entity }} observe attentivement {{ target }}. ({{ last }} => {{ new }})",
+  "game.history.action.observation.energy": "⚡ {{ entity }} récupère {{ energy }} d'énergies pour son observation dans la salle {{ room }}."
 }

@@ -3,6 +3,7 @@ package fr.neutronstars.room.royale.discord.utils;
 import fr.neutronstars.room.royale.core.game.entity.Entity;
 import fr.neutronstars.room.royale.core.game.entity.journal.Entry;
 import fr.neutronstars.room.royale.core.game.entity.journal.LiteralParameter;
+import fr.neutronstars.room.royale.core.game.entity.statistics.EnergyStatistic;
 import fr.neutronstars.room.royale.core.game.history.GameHistories;
 import fr.neutronstars.room.royale.core.game.room.Room;
 import fr.neutronstars.room.royale.core.user.User;
@@ -59,10 +60,15 @@ public class MessageInformation {
         final List<Button> buttons = new ArrayList<>();
 
         if (room != null) {
+            final boolean energyFully = user.player().statistics().of(EnergyStatistic.class).fully();
+            final List<ActionRow> specialRows = new ArrayList<>();
+            final List<Button> specialButtons = new ArrayList<>();
+
             final Entity[] entities = room.entities();
             for (int i = 0; i < entities.length; i++) {
                 if (i > 0 && i % 5 == 0) {
                     rows.add(ActionRow.of(buttons));
+                    specialRows.add(ActionRow.of(specialButtons));
                     buttons.clear();
                 }
                 buttons.add(
@@ -74,9 +80,20 @@ public class MessageInformation {
                         )
                     )
                 );
+                specialButtons.add(
+                    Button.danger(
+                        "action:attack_special:" + (i + 1),
+                        translation.translate(
+                            new Entry("game.button.attack.special")
+                                .add(new LiteralParameter("target", String.valueOf(i + 1)))
+                        )
+                    ).withDisabled(!energyFully)
+                );
             }
             rows.add(ActionRow.of(buttons));
+            specialRows.add(ActionRow.of(specialButtons));
             buttons.clear();
+            rows.addAll(specialRows);
             rows.add(
                 ActionRow.of(
                     Button.primary(
@@ -90,6 +107,10 @@ public class MessageInformation {
                     Button.primary(
                         "action:heal",
                         translation.translate(new Entry("game.button.heal"))
+                    ),
+                    Button.primary(
+                        "action:observation",
+                        translation.translate(new Entry("game.button.observation"))
                     )
                 )
             );

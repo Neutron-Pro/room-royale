@@ -59,9 +59,11 @@ public class ActionButtonInteraction implements ButtonInteraction {
 
         final ActionUserRequest request = switch (name) {
             case "attack" -> new ActionUserRequest(user.id(), "attack", Integer.parseInt(context.of("data")));
+            case "attack_special" -> new ActionUserRequest(user.id(), "attack_special", Integer.parseInt(context.of("data")));
             case "defense" -> new ActionUserRequest(user.id(), "defense");
             case "move" -> new ActionUserRequest(user.id(), "move");
             case "heal" -> new ActionUserRequest(user.id(), "heal");
+            case "observation" -> new ActionUserRequest(user.id(), "observation");
             default -> null;
         };
 

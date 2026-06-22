@@ -19,7 +19,7 @@ public class AttackCommand extends AbstractGameCommand {
     @Override
     public void execute(String... args) {
         if (args.length < 1) {
-            this.printClient.logger().info("attack <playerIndex>");
+            this.printClient.logger().info("attack <playerIndex> [special]");
             return;
         }
 
@@ -27,7 +27,7 @@ public class AttackCommand extends AbstractGameCommand {
         try {
             slot = Integer.parseInt(args[0]);
         } catch (NumberFormatException e) {
-            this.printClient.logger().info("attack <playerIndex>");
+            this.printClient.logger().info("attack <playerIndex> [special]");
             return;
         }
 
@@ -57,8 +57,15 @@ public class AttackCommand extends AbstractGameCommand {
             return;
         }
 
-        this.printClient.roomRoyale().requests()
-            .add(new ActionUserRequest(this.printClient.client().id(), "attack", slot));
+        this.printClient.roomRoyale()
+            .requests()
+            .add(
+                new ActionUserRequest(
+                    this.printClient.client().id(),
+                    args.length < 2 ? "attack" : "attack_special",
+                    slot
+                )
+            );
 
         this.printClient.logger().info("Attack action has been executed.");
     }

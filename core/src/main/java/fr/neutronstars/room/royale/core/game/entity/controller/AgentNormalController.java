@@ -1,15 +1,9 @@
 package fr.neutronstars.room.royale.core.game.entity.controller;
 
 import fr.neutronstars.room.royale.core.game.Game;
-import fr.neutronstars.room.royale.core.game.action.AttackAction;
-import fr.neutronstars.room.royale.core.game.action.DefenseAction;
-import fr.neutronstars.room.royale.core.game.action.HealAction;
-import fr.neutronstars.room.royale.core.game.action.MoveAction;
+import fr.neutronstars.room.royale.core.game.action.*;
 import fr.neutronstars.room.royale.core.game.entity.Entity;
-import fr.neutronstars.room.royale.core.game.entity.statistics.AttackStatistic;
-import fr.neutronstars.room.royale.core.game.entity.statistics.DefenseStatistic;
-import fr.neutronstars.room.royale.core.game.entity.statistics.HealStatistic;
-import fr.neutronstars.room.royale.core.game.entity.statistics.PotionStatistic;
+import fr.neutronstars.room.royale.core.game.entity.statistics.*;
 import fr.neutronstars.room.royale.core.game.room.Room;
 import fr.neutronstars.room.royale.core.game.settings.SettingOf;
 
@@ -61,11 +55,21 @@ public class AgentNormalController extends AgentController {
         }
 
         if (potion.has() && heal.of() < (int) (heal.origin() * 0.25)) {
+            boolean hasUnknownAttack = false;
             int totalAttacks = 0;
             for (final Entity target : entities) {
-                totalAttacks += target.statistics().of(AttackStatistic.class).of();
+                final int level = this.entity.observations().of(target).level();
+                if (level > 0) {
+                    totalAttacks += target.statistics().of(AttackStatistic.class).of();
+                } else {
+                    hasUnknownAttack = true;
+                    break;
+                }
             }
-            if (totalAttacks - (this.entity.statistics().of(DefenseStatistic.class).of() * 2) >= heal.of()) {
+            if (
+                hasUnknownAttack
+                    || totalAttacks - (this.entity.statistics().of(DefenseStatistic.class).of() * 2) >= heal.of()
+            ) {
                 this.entity.action(new HealAction(this.entity, currentTime));
                 return;
             }
@@ -89,6 +93,18 @@ public class AgentNormalController extends AgentController {
             return;
         }
 
-        this.entity.action(new AttackAction(this.entity, target, currentTime));
+        final int level = this.entity.observations().of(target).level();
+        if (level < 4) {
+            this.entity.action(new ObservationAction(this.entity, currentTime));
+            return;
+        }
+        this.entity.action(
+            new AttackAction(
+                this.entity,
+                target,
+                this.entity.statistics().of(EnergyStatistic.class).fully() && room.game().randomizer().rate(50),
+                currentTime
+            )
+        );
     }
 }

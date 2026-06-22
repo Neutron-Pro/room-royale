@@ -1,10 +1,7 @@
 package fr.neutronstars.room.royale.core.game.entity.controller;
 
 import fr.neutronstars.room.royale.core.game.Game;
-import fr.neutronstars.room.royale.core.game.action.AttackAction;
-import fr.neutronstars.room.royale.core.game.action.DefenseAction;
-import fr.neutronstars.room.royale.core.game.action.HealAction;
-import fr.neutronstars.room.royale.core.game.action.MoveAction;
+import fr.neutronstars.room.royale.core.game.action.*;
 import fr.neutronstars.room.royale.core.game.entity.Entity;
 import fr.neutronstars.room.royale.core.game.entity.statistics.*;
 import fr.neutronstars.room.royale.core.game.room.Room;
@@ -59,21 +56,35 @@ public class AgentExpertController extends AgentController {
         }
 
         int totalAttacks = 0;
+        boolean hasUnknownAttacks = false;
         for (final Entity target : entities) {
             if (!target.equals(this.entity)) {
-                totalAttacks += target.statistics().of(AttackStatistic.class).of();
+                if (this.entity.observations().of(target).level() > 0) {
+                    totalAttacks += target.statistics().of(AttackStatistic.class).of();
+                } else {
+                    hasUnknownAttacks = true;
+                    break;
+                }
             }
         }
 
-        final DefenseStatistic defense = this.entity.statistics().of(DefenseStatistic.class);
+        final boolean needDefense;
 
-        totalAttacks -= defense.of() * (entities.size() - 1);
+        if (hasUnknownAttacks) {
+            needDefense = heal.of() < heal.origin() * 0.66;
+        } else {
+            final DefenseStatistic defense = this.entity.statistics().of(DefenseStatistic.class);
 
-        if (totalAttacks < 1) {
-            totalAttacks = 1;
+            totalAttacks -= defense.of() * (entities.size() - 1);
+
+            if (totalAttacks < 1) {
+                totalAttacks = 1;
+            }
+
+            needDefense = (int) (totalAttacks * 66.0 / 100) >= heal.of();
         }
 
-        final boolean needDefense = (int) (totalAttacks * 66.0 / 100) >= heal.of();
+
 
         if (needDefense) {
             if (potion.has()) {
@@ -93,8 +104,16 @@ public class AgentExpertController extends AgentController {
 
         int maxHeal = 0;
 
+        boolean hasUnknownStats = false;
+
         for (final Entity target : entities) {
             if (target.equals(this.entity)) {
+                continue;
+            }
+
+            final int level = this.entity.observations().of(target).level();
+            if (level < 4) {
+                hasUnknownStats = true;
                 continue;
             }
 
@@ -120,6 +139,7 @@ public class AgentExpertController extends AgentController {
                 new AttackAction(
                     this.entity,
                     room.game().randomizer().pick(lowHealEntities),
+                    false,
                     currentTime
                 )
             );
@@ -135,6 +155,28 @@ public class AgentExpertController extends AgentController {
 
         entities.remove(this.entity);
 
-        this.entity.action(new AttackAction(this.entity, room.game().randomizer().pick(entities), currentTime));
+        if (hasUnknownStats) {
+            this.entity.action(new ObservationAction(this.entity, currentTime));
+            return;
+        }
+
+        final Entity target;
+
+        if (!highHealEntities.isEmpty() && room.game().randomizer().rate(70)) {
+            target = room.game().randomizer().pick(highHealEntities);
+        } else {
+            target = room.game().randomizer().pick(entities);
+        }
+
+        this.entity.action(
+            new AttackAction(
+                this.entity,
+                target,
+                this.entity.statistics().of(EnergyStatistic.class).fully()
+                    && target.statistics().of(HealStatistic.class).of()
+                        <= ((attack.of() - target.statistics().of(DefenseStatistic.class).of()) * 2),
+                currentTime
+            )
+        );
     }
 }

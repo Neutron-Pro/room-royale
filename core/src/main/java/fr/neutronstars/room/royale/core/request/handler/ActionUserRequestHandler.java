@@ -1,10 +1,7 @@
 package fr.neutronstars.room.royale.core.request.handler;
 
 import fr.neutronstars.room.royale.core.RoomRoyale;
-import fr.neutronstars.room.royale.core.game.action.AttackAction;
-import fr.neutronstars.room.royale.core.game.action.DefenseAction;
-import fr.neutronstars.room.royale.core.game.action.HealAction;
-import fr.neutronstars.room.royale.core.game.action.MoveAction;
+import fr.neutronstars.room.royale.core.game.action.*;
 import fr.neutronstars.room.royale.core.game.entity.Entity;
 import fr.neutronstars.room.royale.core.game.entity.Player;
 import fr.neutronstars.room.royale.core.game.room.Room;
@@ -28,24 +25,28 @@ public class ActionUserRequestHandler implements RequestHandler<ActionUserReques
             }
             player.action(
                 switch (message.action()) {
-                    case "attack" -> {
-                        if (message.parameter() instanceof Integer) {
-                            final int slot =  ((Integer) message.parameter() - 1);
-                            if (slot > -1 && slot < room.entities().length) {
-                                final Entity entity = room.entities()[slot];
-                                if (entity != null && !entity.equals(player)) {
-                                    yield new AttackAction(player, entity, System.currentTimeMillis());
-                                }
-                            }
-                        }
-                        yield null;
-                    }
+                    case "attack" -> this.attackOf(room, player, message, false);
+                    case "attack_special" -> this.attackOf(room, player, message, true);
                     case "defense" -> new DefenseAction(user.get().player(), System.currentTimeMillis());
                     case "heal" -> new HealAction(user.get().player(), System.currentTimeMillis());
                     case "move" -> new MoveAction(user.get().player(), System.currentTimeMillis());
+                    case "observation" -> new ObservationAction(user.get().player(), System.currentTimeMillis());
                     default -> null;
                 }
             );
         }
+    }
+
+    private AttackAction attackOf(Room room, Player player, ActionUserRequest message, boolean special) {
+        if (message.parameter() instanceof Integer) {
+            final int slot =  ((Integer) message.parameter() - 1);
+            if (slot > -1 && slot < room.entities().length) {
+                final Entity entity = room.entities()[slot];
+                if (entity != null && !entity.equals(player)) {
+                    return new AttackAction(player, entity, special, System.currentTimeMillis());
+                }
+            }
+        }
+        return null;
     }
 }

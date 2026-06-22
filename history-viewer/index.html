@@ -53,10 +53,11 @@
                 <div class="rules-card">
                   <h4>📊 Stats de base</h4>
                   <ul>
-                    <li><strong>HP :</strong> 100</li>
+                    <li><strong>HP :</strong> 100 (Max: 100)</li>
                     <li><strong>ATK :</strong> 25 (Max: 35)</li>
                     <li><strong>DEF :</strong> 0 (Max: 15)</li>
-                    <li><strong>Potions :</strong> 3</li>
+                    <li><strong>Potions :</strong> 1</li>
+                    <li><strong>Énergy :</strong> 0 (Max: 100)</li>
                   </ul>
                 </div>
               </div>
@@ -65,10 +66,12 @@
               <p>Chaque tour, choisissez une action. Si toute la salle répond avant les 60s, le tour se résout immédiatement.</p>
 
               <div class="actions-list">
-                <div class="action-rule-item"><strong>⚔️ Attaquer :</strong> Ciblez un joueur (1 à 4). <br><small>Dégâts = ATK - DEF de la cible. (5% Critique = Dégâts × 2).</small></div>
-                <div class="action-rule-item"><strong>🛡️ Se défendre :</strong> Annule 100% des dégâts. <br><small>Après 3 défenses consécutives, l'efficacité chute à 50%.</small></div>
+                <div class="action-rule-item"><strong>⚔️ Attaquer :</strong> Ciblez un joueur (1 à 4). <br><small>Dégâts = (ATK - DEF) de la cible. (5% Critique = Dégâts × 2).</small><br><small>+50% des dégâts subis convertis en points d'énergie.</small></div>
+                <div class="action-rule-item"><strong>⚔️ Attaque Spéciale :</strong> Ciblez un joueur (1 à 4). <br><small>Dégâts = ((ATK - DEF) × 2) de la cible. (5% Critique = Dégâts × 2).</small> <br><small>Nécessite d'avoir ses points d'énergie au maximum.</small><br><small>+50% des dégâts subis convertis en points d'énergie.</small></div>
+                <div class="action-rule-item"><strong>🛡️ Se défendre :</strong> Annule 100% des dégâts. <br><small>+100% des dégâts subis convertis en points d'énergie.</small><br><small>Après 3 défenses consécutives, l'efficacité chute à 50% de dégâts et aucune conversion en point d'énergie.</small></div>
                 <div class="action-rule-item"><strong>🧪 Potion :</strong> Rend 100% HP. Stock des autres caché. (3 au début + 1 par kill).</div>
                 <div class="action-rule-item"><strong>🚪 Changer de salle :</strong> Rejoint une salle de 1 à 3 joueurs.</div>
+                <div class="action-rule-item"><strong>👁️ Observation de la salle :</strong> Ajoute +1 au compteur d'observation de chaque joueur présent dans la salle. <br><small>+10 points d'énergie</small></div>
               </div>
 
               <blockquote class="warning-block">💀 <strong>Inactivité :</strong> 10% de vos HP restants en dégâts si vous ne jouez pas.</blockquote>
@@ -81,7 +84,13 @@
               </ul>
 
               <h3>👁️ Informations visibles</h3>
-              <p>Vous voyez les HP, ATK, DEF et Kills des adversaires. Les pseudos réels et les potions restent cachés.</p>
+              <p>Vous voyez les HP, ATK, DEF et Kills des adversaires, seulement si le niveau d'observation est suffisant. Les pseudos réels et les potions restent cachés.</p>
+              <ul>
+                <li>ATK : niveau 1 d'observation</li>
+                <li>DEF : niveau 2 d'observation</li>
+                <li>KILLS : niveau 3 d'observation</li>
+                <li>HP : niveau 4 d'observation</li>
+              </ul>
             </div>
 
             <div v-if="currentLang === 'en'">
@@ -99,7 +108,7 @@
                     <li><strong>HP:</strong> 100</li>
                     <li><strong>ATK:</strong> 25 (Max: 35)</li>
                     <li><strong>DEF:</strong> 0 (Max: 15)</li>
-                    <li><strong>Potions:</strong> 3</li>
+                    <li><strong>Potions:</strong> 1</li>
                   </ul>
                 </div>
               </div>
@@ -110,9 +119,26 @@
                 <div class="action-rule-item"><strong>🛡️ Defend:</strong> Blocks 100%. <br><small>Drops to 50% after 3 consecutive uses.</small></div>
                 <div class="action-rule-item"><strong>🧪 Potion:</strong> Restores 100% HP.</div>
                 <div class="action-rule-item"><strong>🚪 Change Room:</strong> Moves to a room with 1-3 players.</div>
+                <div class="action-rule-item"><strong>👁️ Observation of the room :</strong> Add +1 to the observation counter for each player present in the room.</div>
               </div>
 
               <blockquote class="warning-block">💀 <strong>Inactivity:</strong> Deals 10% of remaining HP if AFK.</blockquote>
+              <h3>🏆 Kills & Buffs</h3>
+              <p>Securing a kill grants a temporary buff lasting for <strong>5 turns</strong>:</p>
+              <ul>
+                <li>First kill: <strong>+5 ATK / +2 DEF / +1 Potion</strong>.</li>
+                <li>Chain kill during countdown: Buffs stack (<strong>+2 ATK / +1 DEF</strong>) and the timer gets <strong>+4 turns</strong>.</li>
+              </ul>
+              <p><small>⚠️ If the countdown reaches 0, all kill-related buffs disappear and stats reset to base values.</small></p>
+
+              <h3>👁️ Visible Information</h3>
+              <p>Inside your room, you can see your opponents' <strong>HP, ATK, DEF, and Kill count</strong> (only if the level of observation is sufficient). Their real names and remaining potions are <strong>strictly hidden</strong>.</p>
+              <ul>
+                <li>ATK : observation level 1</li>
+                <li>DEF : observation level 2</li>
+                <li>KILLS : observation level 3</li>
+                <li>HP : observation level 4</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -222,7 +248,7 @@
                   <li><strong>HP :</strong> 100</li>
                   <li><strong>ATK :</strong> 25 (Max: 35 avec bonus)</li>
                   <li><strong>DEF :</strong> 0 (Max: 15 avec bonus)</li>
-                  <li><strong>Potions :</strong> 3</li>
+                  <li><strong>Potions :</strong> 1</li>
                 </ul>
               </div>
             </div>
@@ -245,6 +271,10 @@
               <div class="action-rule-item">
                 <strong>🚪 Changer de salle :</strong> Tente de rejoindre une salle contenant entre 1 et 3 joueurs. Échoue si aucune salle n'est valide.
               </div>
+
+              <div class="action-rule-item">
+                <strong>👁️ Observation de la salle :</strong> Ajoute +1 au compteur d'observation de chaque joueur présent dans la salle.
+              </div>
             </div>
 
             <blockquote class="warning-block">
@@ -260,7 +290,13 @@
             <p><small>⚠️ Si le compteur tombe à 0, tous les bonus accumulés disparaissent et les stats reviennent à leur valeur de base.</small></p>
 
             <h3>👁️ Informations visibles</h3>
-            <p>Dans votre salle, vous voyez les <strong>HP, ATK, DEF et le nombre de Kills</strong> de vos adversaires. Leurs pseudos réels et leurs stocks de potions restent <strong>strictement cachés</strong>.</p>
+            <p>Dans votre salle, vous voyez les <strong>HP, ATK, DEF et le nombre de Kills</strong> de vos adversaires, seulement si le niveau d'observation est suffisant. Leurs pseudos réels et leurs stocks de potions restent <strong>strictement cachés</strong>.</p>
+            <ul>
+              <li>ATK : niveau 1 d'observation</li>
+              <li>DEF : niveau 2 d'observation</li>
+              <li>KILLS : niveau 3 d'observation</li>
+              <li>HP : niveau 4 d'observation</li>
+            </ul>
           </div>
 
           <div v-slot v-if="currentLang === 'en'">
@@ -301,6 +337,9 @@
               <div class="action-rule-item">
                 <strong>🚪 Change Room:</strong> Try to move to another room with 1 to 3 players. Fails if no valid room is found.
               </div>
+              <div class="action-rule-item">
+                <strong>👁️ Observation of the room :</strong> Add +1 to the observation counter for each player present in the room.
+              </div>
             </div>
 
             <blockquote class="warning-block">
@@ -316,7 +355,13 @@
             <p><small>⚠️ If the countdown reaches 0, all kill-related buffs disappear and stats reset to base values.</small></p>
 
             <h3>👁️ Visible Information</h3>
-            <p>Inside your room, you can see your opponents' <strong>HP, ATK, DEF, and Kill count</strong>. Their real names and remaining potions are <strong>strictly hidden</strong>.</p>
+            <p>Inside your room, you can see your opponents' <strong>HP, ATK, DEF, and Kill count</strong> (only if the level of observation is sufficient). Their real names and remaining potions are <strong>strictly hidden</strong>.</p>
+            <ul>
+              <li>ATK : observation level 1</li>
+              <li>DEF : observation level 2</li>
+              <li>KILLS : observation level 3</li>
+              <li>HP : observation level 4</li>
+            </ul>
           </div>
 
         </div>

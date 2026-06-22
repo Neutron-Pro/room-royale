@@ -17,6 +17,8 @@ public enum SettingOf {
     DEFENSE_MAX("defense.max", 15),
     DEFENSE_LIMITER("defense.limiter", 3),
 
+    ENERGY_MAX("energy.max", 100),
+
     STREAK_ROUND_START("streak.start", 6),
     STREAK_ROUND("streak", 4),
     STREAK_ATTACK_START("streak.attack.start", 5),
