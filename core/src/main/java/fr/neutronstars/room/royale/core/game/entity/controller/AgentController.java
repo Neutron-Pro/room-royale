@@ -1,15 +1,18 @@
 package fr.neutronstars.room.royale.core.game.entity.controller;
 
 import fr.neutronstars.room.royale.core.game.entity.Entity;
+import fr.neutronstars.room.royale.core.game.entity.controller.state.StateMachine;
 
 public abstract class AgentController implements Controller {
     protected final Entity entity;
     protected final String prefix;
+    protected final StateMachine stateMachine;
     protected long reactionTime = -1;
 
     protected AgentController(Entity entity, String prefix) {
         this.entity = entity;
         this.prefix = prefix;
+        this.stateMachine = new StateMachine(entity);
     }
 
     @Override
